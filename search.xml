@@ -218,11 +218,11 @@
     
     
     <entry>
-      <title>Requests小技巧和scrapy说明</title>
-      <link href="posts/fd59dc2b/"/>
-      <url>posts/fd59dc2b/</url>
+      <title>matplotlib设置中文显示</title>
+      <link href="posts/695ebb9c/"/>
+      <url>posts/695ebb9c/</url>
       
-        <content type="html"><![CDATA[<h2 id="Requests小技巧"><a href="#Requests小技巧" class="headerlink" title="Requests小技巧"></a>Requests小技巧</h2><ul><li><code>requests.utils.dict_from_cookiejar</code> 把cookie对象转化为字典</li><li>请求SSL证书验证  <code>requests.get(&quot;&lt;https://www.12306.cn/mormhweb/&gt;&quot;, verify=False)</code></li><li>配合状态码判断是否请求成功 <code>assert response.status_code ==200</code></li></ul><h2 id="Scrapy"><a href="#Scrapy" class="headerlink" title="Scrapy"></a>Scrapy</h2><blockquote><p>爬虫库 python3.6以上</p></blockquote>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">asn1crypto==<span class="number">0.24</span><span class="number">.0</span></span><br><span class="line">attrs==<span class="number">19.1</span><span class="number">.0</span></span><br><span class="line">Automat==<span class="number">0.7</span><span class="number">.0</span></span><br><span class="line">certifi==<span class="number">2019.3</span><span class="number">.9</span></span><br><span class="line">cffi==<span class="number">1.12</span><span class="number">.3</span></span><br><span class="line">constantly==<span class="number">15.1</span><span class="number">.0</span></span><br><span class="line">cryptography==<span class="number">2.6</span><span class="number">.1</span></span><br><span class="line">cssselect==<span class="number">1.0</span><span class="number">.3</span></span><br><span class="line">hyperlink==<span class="number">19.0</span><span class="number">.0</span></span><br><span class="line">idna==<span class="number">2.8</span></span><br><span class="line">incremental==<span class="number">17.5</span><span class="number">.0</span></span><br><span class="line">lxml==<span class="number">4.3</span><span class="number">.3</span></span><br><span class="line">parsel==<span class="number">1.5</span><span class="number">.1</span></span><br><span class="line">pyasn1==<span class="number">0.4</span><span class="number">.5</span></span><br><span class="line">pyasn1-modules==<span class="number">0.2</span><span class="number">.5</span></span><br><span class="line">pycparser==<span class="number">2.19</span></span><br><span class="line">PyDispatcher==<span class="number">2.0</span><span class="number">.5</span></span><br><span class="line">PyHamcrest==<span class="number">1.9</span><span class="number">.0</span></span><br><span class="line">PyMySQL==<span class="number">0.9</span><span class="number">.3</span></span><br><span class="line">pyOpenSSL==<span class="number">19.0</span><span class="number">.0</span></span><br><span class="line">pywin32==<span class="number">224</span></span><br><span class="line">queuelib==<span class="number">1.5</span><span class="number">.0</span></span><br><span class="line">Scrapy==<span class="number">1.6</span><span class="number">.0</span></span><br><span class="line">service-identity==<span class="number">18.1</span><span class="number">.0</span></span><br><span class="line">six==<span class="number">1.12</span><span class="number">.0</span></span><br><span class="line">Twisted==<span class="number">19.2</span><span class="number">.0</span></span><br><span class="line">w3lib==<span class="number">1.20</span><span class="number">.0</span></span><br><span class="line">wincertstore==<span class="number">0.2</span></span><br><span class="line">zope.interface==<span class="number">4.6</span><span class="number">.0</span></span><br></pre></td></tr></table></figure><blockquote><p>常用命令</p></blockquote><ul><li>全局命令<a href="%E4%B8%8D%E8%BF%9B%E5%85%A5%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E5%8D%B3%E5%8F%AF%E8%BF%90%E8%A1%8C">^1</a><ul><li>fetch: 用来显示爬虫爬取过程</li><li>runspider: 可以实现不依托scrapy的爬虫项目，直接运行一个爬虫文件。</li><li>settings:</li><li>shell:</li><li>startproject:</li><li>version:</li><li>view:可以下载某个网页并用浏览器查看。</li></ul></li><li>项目命令<ul><li>bench: 可以测试本地硬件的性能； 运行scrapy bench 时，会创建一个本地服务器并以最大速度爬行</li><li>check: 爬虫测试比较麻烦，所以在scrapy中使用合同（contract）的方式对爬虫进行测试。<br><code>scrapy check [爬虫名]</code></li><li>crawl</li><li>edit: Linux中可以直接打开编辑器编辑爬虫文件</li><li>genspider: 有多个模板可供选择 参数 -t crawl</li><li>list: 列出当前可以使用的爬虫文件</li><li>parse: 获取指定的网址，使用对应的爬虫文件处理和分析</li></ul></li></ul>]]></content>
+        <content type="html"><![CDATA[<p>​matplotlib默认不支持中文字符，因为默认的英文字体无法显示汉字。</p><ul><li><p>查看Linux/Mac下面支持的字体</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fc-list 查看支持的字体</span><br><span class="line">fc-list :lang=zh 查看支持的中文（冒号前面有空格）</span><br></pre></td></tr></table></figure></li></ul><ul><li><p>修改matplotlib字体</p><blockquote><ol><li>通过matplotlib.rc修改（Windows/Linux），不过测试并没有成功</li></ol></blockquote>   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line">font = &#123;<span class="string">&quot;family&quot;</span>: <span class="string">&quot;Microsoft Yahei&quot;</span>&#125;</span><br><span class="line">matplotlib.rc(<span class="string">&quot;font&quot;</span>, **font)</span><br></pre></td></tr></table></figure></li></ul><blockquote><ol start="2"><li>通过matplotlib下的font_manager修改（Windows/Linux/Mac），测试成功</li></ol></blockquote><pre><code> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> font_manager, pyplot</span><br><span class="line"><span class="comment"># fname里面的内容是通过fc-list :lang=zh命令查询到的系统支持的中文字体</span></span><br><span class="line">my_font = font_manager.FontProperties(fname=”/usr/share/fonts/truetype/arphic/uming.ttc”)</span><br><span class="line">a = [random.randint(<span class="number">20</span>,<span class="number">35</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">60</span>)]</span><br><span class="line">_b = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">60</span>))</span><br><span class="line">_bticks_labels = [“<span class="number">10</span>点%02d分” % i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">60</span>)]</span><br><span class="line">pyplot.figure(figsize=(<span class="number">30</span>,<span class="number">15</span>))</span><br><span class="line"><span class="comment"># rotation旋转的度数，fontproperties设置字体</span></span><br><span class="line">pyplot.xticks(_b[::<span class="number">10</span>], _bticks_labels[::<span class="number">10</span>], rotation=<span class="number">45</span>, fontproperties=my_font)</span><br><span class="line">pyplot.plot(_b,a)</span><br></pre></td></tr></table></figure></code></pre>]]></content>
       
       
       <categories>
@@ -234,9 +234,7 @@
       
         <tags>
             
-            <tag> requests </tag>
-            
-            <tag> scrapy </tag>
+            <tag> matplotlib </tag>
             
         </tags>
       
@@ -262,6 +260,33 @@
         <tags>
             
             <tag> urllib </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Requests小技巧和scrapy说明</title>
+      <link href="posts/fd59dc2b/"/>
+      <url>posts/fd59dc2b/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Requests小技巧"><a href="#Requests小技巧" class="headerlink" title="Requests小技巧"></a>Requests小技巧</h2><ul><li><code>requests.utils.dict_from_cookiejar</code> 把cookie对象转化为字典</li><li>请求SSL证书验证  <code>requests.get(&quot;&lt;https://www.12306.cn/mormhweb/&gt;&quot;, verify=False)</code></li><li>配合状态码判断是否请求成功 <code>assert response.status_code ==200</code></li></ul><h2 id="Scrapy"><a href="#Scrapy" class="headerlink" title="Scrapy"></a>Scrapy</h2><blockquote><p>爬虫库 python3.6以上</p></blockquote>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">asn1crypto==<span class="number">0.24</span><span class="number">.0</span></span><br><span class="line">attrs==<span class="number">19.1</span><span class="number">.0</span></span><br><span class="line">Automat==<span class="number">0.7</span><span class="number">.0</span></span><br><span class="line">certifi==<span class="number">2019.3</span><span class="number">.9</span></span><br><span class="line">cffi==<span class="number">1.12</span><span class="number">.3</span></span><br><span class="line">constantly==<span class="number">15.1</span><span class="number">.0</span></span><br><span class="line">cryptography==<span class="number">2.6</span><span class="number">.1</span></span><br><span class="line">cssselect==<span class="number">1.0</span><span class="number">.3</span></span><br><span class="line">hyperlink==<span class="number">19.0</span><span class="number">.0</span></span><br><span class="line">idna==<span class="number">2.8</span></span><br><span class="line">incremental==<span class="number">17.5</span><span class="number">.0</span></span><br><span class="line">lxml==<span class="number">4.3</span><span class="number">.3</span></span><br><span class="line">parsel==<span class="number">1.5</span><span class="number">.1</span></span><br><span class="line">pyasn1==<span class="number">0.4</span><span class="number">.5</span></span><br><span class="line">pyasn1-modules==<span class="number">0.2</span><span class="number">.5</span></span><br><span class="line">pycparser==<span class="number">2.19</span></span><br><span class="line">PyDispatcher==<span class="number">2.0</span><span class="number">.5</span></span><br><span class="line">PyHamcrest==<span class="number">1.9</span><span class="number">.0</span></span><br><span class="line">PyMySQL==<span class="number">0.9</span><span class="number">.3</span></span><br><span class="line">pyOpenSSL==<span class="number">19.0</span><span class="number">.0</span></span><br><span class="line">pywin32==<span class="number">224</span></span><br><span class="line">queuelib==<span class="number">1.5</span><span class="number">.0</span></span><br><span class="line">Scrapy==<span class="number">1.6</span><span class="number">.0</span></span><br><span class="line">service-identity==<span class="number">18.1</span><span class="number">.0</span></span><br><span class="line">six==<span class="number">1.12</span><span class="number">.0</span></span><br><span class="line">Twisted==<span class="number">19.2</span><span class="number">.0</span></span><br><span class="line">w3lib==<span class="number">1.20</span><span class="number">.0</span></span><br><span class="line">wincertstore==<span class="number">0.2</span></span><br><span class="line">zope.interface==<span class="number">4.6</span><span class="number">.0</span></span><br></pre></td></tr></table></figure><blockquote><p>常用命令</p></blockquote><ul><li>全局命令<a href="%E4%B8%8D%E8%BF%9B%E5%85%A5%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E5%8D%B3%E5%8F%AF%E8%BF%90%E8%A1%8C">^1</a><ul><li>fetch: 用来显示爬虫爬取过程</li><li>runspider: 可以实现不依托scrapy的爬虫项目，直接运行一个爬虫文件。</li><li>settings:</li><li>shell:</li><li>startproject:</li><li>version:</li><li>view:可以下载某个网页并用浏览器查看。</li></ul></li><li>项目命令<ul><li>bench: 可以测试本地硬件的性能； 运行scrapy bench 时，会创建一个本地服务器并以最大速度爬行</li><li>check: 爬虫测试比较麻烦，所以在scrapy中使用合同（contract）的方式对爬虫进行测试。<br><code>scrapy check [爬虫名]</code></li><li>crawl</li><li>edit: Linux中可以直接打开编辑器编辑爬虫文件</li><li>genspider: 有多个模板可供选择 参数 -t crawl</li><li>list: 列出当前可以使用的爬虫文件</li><li>parse: 获取指定的网址，使用对应的爬虫文件处理和分析</li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> requests </tag>
+            
+            <tag> scrapy </tag>
             
         </tags>
       
@@ -343,44 +368,6 @@
             <tag> jupyter notebook </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>matplotlib设置中文显示</title>
-      <link href="posts/695ebb9c/"/>
-      <url>posts/695ebb9c/</url>
-      
-        <content type="html"><![CDATA[<p>​matplotlib默认不支持中文字符，因为默认的英文字体无法显示汉字。</p><ul><li><p>查看Linux/Mac下面支持的字体</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fc-list 查看支持的字体</span><br><span class="line">fc-list :lang=zh 查看支持的中文（冒号前面有空格）</span><br></pre></td></tr></table></figure></li></ul><ul><li><p>修改matplotlib字体</p><blockquote><ol><li>通过matplotlib.rc修改（Windows/Linux），不过测试并没有成功</li></ol></blockquote>   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line">font = &#123;<span class="string">&quot;family&quot;</span>: <span class="string">&quot;Microsoft Yahei&quot;</span>&#125;</span><br><span class="line">matplotlib.rc(<span class="string">&quot;font&quot;</span>, **font)</span><br></pre></td></tr></table></figure></li></ul><blockquote><ol start="2"><li>通过matplotlib下的font_manager修改（Windows/Linux/Mac），测试成功</li></ol></blockquote><pre><code> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> font_manager, pyplot</span><br><span class="line"><span class="comment"># fname里面的内容是通过fc-list :lang=zh命令查询到的系统支持的中文字体</span></span><br><span class="line">my_font = font_manager.FontProperties(fname=”/usr/share/fonts/truetype/arphic/uming.ttc”)</span><br><span class="line">a = [random.randint(<span class="number">20</span>,<span class="number">35</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">60</span>)]</span><br><span class="line">_b = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">60</span>))</span><br><span class="line">_bticks_labels = [“<span class="number">10</span>点%02d分” % i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">60</span>)]</span><br><span class="line">pyplot.figure(figsize=(<span class="number">30</span>,<span class="number">15</span>))</span><br><span class="line"><span class="comment"># rotation旋转的度数，fontproperties设置字体</span></span><br><span class="line">pyplot.xticks(_b[::<span class="number">10</span>], _bticks_labels[::<span class="number">10</span>], rotation=<span class="number">45</span>, fontproperties=my_font)</span><br><span class="line">pyplot.plot(_b,a)</span><br></pre></td></tr></table></figure></code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> matplotlib </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="posts/4a17b156/"/>
-      <url>posts/4a17b156/</url>
-      
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-      
-      
       
     </entry>
     
