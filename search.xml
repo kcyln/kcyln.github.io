@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>常用安装</title>
+      <link href="/posts/f4956656/"/>
+      <url>/posts/f4956656/</url>
+      
+        <content type="html"><![CDATA[<h2 id="ubuntu-18-04-下安装-MySQL"><a href="#ubuntu-18-04-下安装-MySQL" class="headerlink" title="ubuntu 18.04 下安装 MySQL"></a>ubuntu 18.04 下安装 MySQL</h2><h3 id="查看系统是否安装mysql"><a href="#查看系统是否安装mysql" class="headerlink" title="查看系统是否安装mysql"></a>查看系统是否安装mysql</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netstat -tap | grep mysql</span><br></pre></td></tr></table></figure><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install mysql-server mysql-client</span><br></pre></td></tr></table></figure><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><ol><li><p>登录mysql</p><ul><li>开始安装的不知道mysql的登录密码，可以使用下列命令查看，然后登录<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">cat</span> /etc/mysql/debian.cnf  <span class="comment"># 使用client下的user和password登录</span></span><br></pre></td></tr></table></figure><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/08/07/9e27653a820905113db76b4d68733f41.png"></li><li>或者也可以直接输入 <code>sudo mysql</code> 登录</li></ul></li><li><p>修改root用户密码</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;new-password&#x27;;</span><br></pre></td></tr></table></figure></li><li><p>添加新用户</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GRANT ALL PRIVILEGES ON *.* TO &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;mypassword&#x27; ;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure></li></ol><blockquote><p>踩坑</p></blockquote><p><strong>问题：</strong> 关于远程连接时遇到的问题，设置了远程连接账号，开放了3306端口， 本地Navicat无法连接<br><strong>解答：</strong> 检查发现需要修改配置文件 将 bind-address 127.0.0.1 注释掉</p><h2 id="ubuntu-18-04下安装-MongoDB"><a href="#ubuntu-18-04下安装-MongoDB" class="headerlink" title="ubuntu 18.04下安装 MongoDB"></a>ubuntu 18.04下安装 MongoDB</h2><blockquote><p>建议查看官方文档： <a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/index.html">https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/index.html</a></p></blockquote><ol><li><p>导入MongoDB的包公钥</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5</span><br></pre></td></tr></table></figure></li><li><p>创建源列表文件</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse&quot;</span> | sudo <span class="built_in">tee</span> /etc/apt/sources.list.d/mongodb-org-3.6.list</span><br></pre></td></tr></table></figure> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y mongodb-org</span><br></pre></td></tr></table></figure></li></ol><h2 id="ubuntu-18-04下安装-Redis"><a href="#ubuntu-18-04下安装-Redis" class="headerlink" title="ubuntu 18.04下安装 Redis"></a>ubuntu 18.04下安装 Redis</h2><h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo wget http://download.redis.io/releases/redis-5.0.5.tar.gz</span><br><span class="line">tar -zxvf redis-5.0.5.tar.gz</span><br><span class="line">sudo <span class="built_in">mv</span> ./redis-5.0.5 /usr/local/redis</span><br><span class="line"><span class="built_in">cd</span> /usr/local/redis/</span><br><span class="line">sudo make  <span class="comment"># 生成</span></span><br><span class="line">sudo make <span class="built_in">test</span>  <span class="comment"># 测试</span></span><br><span class="line">sudo make install  <span class="comment"># 安装，将redis命令安装到/usr/local/bin目录</span></span><br><span class="line">sudo <span class="built_in">cp</span> /usr/local/redis/redis.conf /etc/redis/</span><br></pre></td></tr></table></figure><h3 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/redis/</span><br><span class="line">vi redis.conf</span><br><span class="line">daemonize <span class="built_in">yes</span>  <span class="comment"># 设置守护进程</span></span><br><span class="line"><span class="comment"># 设置日志目录，目录和文件需要先手动创建好</span></span><br><span class="line"><span class="built_in">dir</span> /var/lib/redis </span><br><span class="line">logfile <span class="string">&quot;/var/log/redis/redis-server.log&quot;</span></span><br></pre></td></tr></table></figure><h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo redis-server /etc/redis/redis.conf</span><br></pre></td></tr></table></figure><h3 id="设置开机启动"><a href="#设置开机启动" class="headerlink" title="设置开机启动"></a>设置开机启动</h3><ol><li><p>将redis服务脚本(&#x2F;usr&#x2F;local&#x2F;redis&#x2F;utils&#x2F;redis_init_script)复制到 &#x2F;etc&#x2F;init.d目录下</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">cp</span> /usr/local/redis/utils/redis_init_script /etc/init.d</span><br></pre></td></tr></table></figure></li><li><p>将服务脚本改名为redis并修改配置信息，本次只修改了一个  CONF&#x3D;”&#x2F;etc&#x2F;redis&#x2F;redis.conf”</p><p> ​<img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/08/07/3be4ae2bf5dbbe030d2cf2ba83ca6426.png"></p></li><li><p>给文件执行权限 </p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">chmod</span> +x /etc/init.d/redis</span><br></pre></td></tr></table></figure></li><li><p>加入服务，开机自启</p><ul><li><p>第一次 <code>chkconfig --add redis</code> 提示未找到命令</p></li><li><p>使用第二种方法 <code>sudo update-rc.d redis defaults</code> 成功</p></li><li><p>之后使用命令 <code>sudo service redis start | stop | restart</code> 即可</p></li></ul></li></ol><p><strong>参考链接：</strong>  <a href="https://blog.csdn.net/qq_42403743/article/details/81358676">https://blog.csdn.net/qq_42403743/article/details/81358676</a></p><p>   ​ <a href="https://jingyan.baidu.com/article/ca41422f3fa2421eae99edd2.html">https://jingyan.baidu.com/article/ca41422f3fa2421eae99edd2.html</a></p><blockquote><p>踩坑</p></blockquote><ul><li><p>输入 sudo make test 时报错</p><p>  <img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/08/07/746bfd9ac6400194a152a83e9d5b87d2.png"></p><p>  <strong>解决方法</strong>： 安装tcl，按照下面安装后问题解决</p>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo wget http://downloads.sourceforge.net/tcl/tcl8.6.1-src.tar.gz</span><br><span class="line">sudo tar xzvf tcl8.6.1-src.tar.gz -C /usr/local/</span><br><span class="line"><span class="built_in">cd</span> /usr/local/tcl8.6.1/unix/</span><br><span class="line">sudo ./configure</span><br><span class="line">sudo make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure><p>  PS： 如果之后make test 还报错，可以重新运行几次make test 命令试试</p></li></ul><h2 id="ubuntu-18-04下安装-Git"><a href="#ubuntu-18-04下安装-Git" class="headerlink" title="ubuntu 18.04下安装 Git"></a>ubuntu 18.04下安装 Git</h2><h3 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git </span><br></pre></td></tr></table></figure><h3 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h3><blockquote><p>基本命令</p></blockquote><ul><li><p><code>ssh-keygen -t rsa</code></p></li><li><p>将id_rsa.pub的内容复制到GitHub</p></li><li><p>验证是否成功     <code>ssh -T git@github.com</code></p></li></ul><blockquote><p>全局设置</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;yourusername&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;youremail&quot;</span></span><br></pre></td></tr></table></figure><blockquote><p>一台电脑同时连接github和gitee</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.ssh</span><br><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;xxxx@email.com&quot;</span> -f <span class="string">&quot;github_id_rsa&quot;</span></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;xxxx@email.com&quot;</span> -f <span class="string">&quot;gitee_id_rsa&quot;</span></span><br><span class="line"><span class="comment"># 将生成的公钥文件对应复制到github和gitee中，为了解决冲突，需要创建config文件</span></span><br><span class="line"><span class="built_in">touch</span> ~/.ssh/config</span><br><span class="line"><span class="comment"># 文件内输入下列内容，完成后保存即可。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># gitee</span></span><br><span class="line">Host gitee.com</span><br><span class="line">HostName gitee.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/gitee_id_rsa</span><br><span class="line"></span><br><span class="line"><span class="comment"># github</span></span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/github_id_rsa</span><br></pre></td></tr></table></figure><p>PS： 多台电脑使用同一的ssh文件，可以直接将.ssh文件夹复制到其他电脑，然后覆盖对应的目录。</p><h2 id="ubuntu-18-04下安装-Docker"><a href="#ubuntu-18-04下安装-Docker" class="headerlink" title="ubuntu 18.04下安装 Docker"></a>ubuntu 18.04下安装 Docker</h2><blockquote><p>建议查看官方文档： <a href="https://docs.docker.com/engine/install/ubuntu/">https://docs.docker.com/engine/install/ubuntu/</a></p></blockquote><h3 id="使用存储库安装"><a href="#使用存储库安装" class="headerlink" title="使用存储库安装"></a>使用存储库安装</h3><ol><li><p>设置存储库</p><ul><li>更新apt软件包索引并安装软件包以允许apt通过HTTPS使用存储库<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line">sudo apt-get install \</span><br><span class="line">    apt-transport-https \</span><br><span class="line">    ca-certificates \</span><br><span class="line">    curl \</span><br><span class="line">    gnupg-agent \</span><br><span class="line">    software-properties-common</span><br></pre></td></tr></table></figure></li><li>添加Docker的官方GPG密钥<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure></li><li>9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88通过搜索指纹的后8个字符，验证您现在是否拥有带有指纹的密钥<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key fingerprint 0EBFCD88</span><br></pre></td></tr></table></figure></li><li>输出以下内容<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pub   rsa4096 2017-02-22 [SCEA]</span><br><span class="line">      9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88</span><br><span class="line">uid           [ unknown] Docker Release (CE deb) &lt;docker@docker.com&gt;</span><br><span class="line">sub   rsa4096 2017-02-22 [S]</span><br></pre></td></tr></table></figure></li><li>设置稳定的存储库<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository \</span><br><span class="line">  <span class="string">&quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu \</span></span><br><span class="line"><span class="string">  <span class="subst">$(lsb_release -cs)</span> \</span></span><br><span class="line"><span class="string">  stable&quot;</span></span><br></pre></td></tr></table></figure></li></ul></li><li><p>安装DOCKER引擎</p>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新apt程序包索引，并安装最新版本的Docker Engine和容器</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure></li><li><p>以非root用户管理Docker</p>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd docker</span><br><span class="line">sudo usermod -aG docker <span class="variable">$USER</span></span><br></pre></td></tr></table></figure></li></ol><h3 id="使用脚本安装"><a href="#使用脚本安装" class="headerlink" title="使用脚本安装"></a>使用脚本安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo wget -qO- https://get.docker.com | sh  <span class="comment"># 自动下载安装docker命令</span></span><br><span class="line">sudo usermod -aG docker <span class="variable">$USER</span>  <span class="comment"># 给与docker权限，如果输入命令后不生效，可以重启系统后再试</span></span><br></pre></td></tr></table></figure><h3 id="docker基本命令"><a href="#docker基本命令" class="headerlink" title="docker基本命令"></a>docker基本命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">docker info  <span class="comment"># 查看docker信息</span></span><br><span class="line">docker pull <span class="comment"># 拉取镜像</span></span><br><span class="line">docker build <span class="comment"># 创建镜像</span></span><br><span class="line">docker run <span class="comment"># 运行容器</span></span><br><span class="line">docker images   <span class="comment"># 查看镜像</span></span><br><span class="line">docker ps  <span class="comment"># 查看运行中的容器</span></span><br><span class="line">docker ps -a  <span class="comment"># 查看所有容器</span></span><br><span class="line">docker stop sdai3nf  <span class="comment"># 停止容器</span></span><br><span class="line">docker <span class="built_in">rm</span> ef87fse8  cf045930cd83 <span class="comment"># 删除停止的容器，可以同时删除多个容器</span></span><br><span class="line">docker rmi fd8efke  <span class="comment"># 删除镜像</span></span><br><span class="line">docker <span class="built_in">cp</span>  <span class="comment"># 在宿主机和容器之间拷贝文件</span></span><br><span class="line">docker commit <span class="comment"># 保存改动为新的镜像</span></span><br><span class="line"></span><br><span class="line">docker run ubuntu <span class="built_in">echo</span> hello docker</span><br><span class="line">docker run -p -d 8080:80 nginx</span><br><span class="line">docker <span class="built_in">cp</span> index.html cf045930cd83://usr/share/nginx/html</span><br><span class="line">docker commit -m <span class="string">&quot;hello&quot;</span> cf045930cd83 hello   <span class="comment"># 提交命令，保存容器的更改，会返回一个新的镜像;最后的hello是镜像名</span></span><br><span class="line">docker <span class="built_in">exec</span> -it nginx /bin/bash  <span class="comment"># 进入容器内部</span></span><br></pre></td></tr></table></figure><h3 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span>           <span class="comment"># 基础镜像</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash">            <span class="comment"># 执行命令</span></span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash">            <span class="comment"># 添加文件,比COPY更强，可以复制远程文件</span></span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash">           <span class="comment"># 拷贝文件</span></span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash">            <span class="comment"># 执行命令,程序入口</span></span></span><br><span class="line"><span class="keyword">EXPOSE</span>         <span class="comment"># 暴露端口</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash">        <span class="comment"># 指定路径 </span></span></span><br><span class="line"><span class="keyword">MAINTAINER</span>     <span class="comment"># 维护者</span></span><br><span class="line"><span class="keyword">ENV</span>            <span class="comment"># 设置环境变量</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash">     <span class="comment"># 容器入口,如果没有CMD,从这里启动，如果有,那CMD的内容就是这个的参数</span></span></span><br><span class="line"><span class="keyword">USER</span>           <span class="comment"># 指定用户</span></span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash">         <span class="comment"># 挂载卷</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> alpine:latest</span><br><span class="line"><span class="keyword">MAINTAINER</span> xxxx  // 容器作者</span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&#x27;hello docker&#x27;</span></span></span><br><span class="line"></span><br><span class="line">// 运行命令创建镜像</span><br><span class="line">docker build -t hello .</span><br><span class="line">docker <span class="keyword">run</span><span class="language-bash"> hello  // 运行容器,输出内容</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> ubuntu</span><br><span class="line"><span class="keyword">MAINTAINER</span> xxxx</span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> sed -i <span class="string">&#x27;s/archive.ubuntu.com/mirrors.ustc.edu.cn/g&#x27;</span> /etc/apt/sources.list</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get install -y nginx</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> index.html /var/www/html</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;/usr/sbin/nginx&quot;</span>, <span class="string">&quot;-g&quot;</span>, <span class="string">&quot;daemon off;&quot;</span>]</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></span><br><span class="line"></span><br><span class="line">// 运行命令创建镜像</span><br><span class="line">docker build -t hello .</span><br><span class="line">docker <span class="keyword">run</span><span class="language-bash"> -d -p 8080:80 hello </span></span><br><span class="line">curl http://localhost:<span class="number">8080</span> </span><br></pre></td></tr></table></figure><h3 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -v /usr/share/nginx/html nginx  // 挂载卷</span><br><span class="line">docker inspect nginx // 查看信息， 可以看到挂载卷宿主机的路径</span><br><span class="line"></span><br><span class="line">docker run -v <span class="variable">$PWD</span>/code:/usr/share/nginx/html nginx  // 挂载卷</span><br><span class="line"></span><br><span class="line">docker create -v <span class="variable">$PWD</span>/data:/var/mydata --name data_container ubuntu  // 创建一个用来提供数据的容器</span><br><span class="line">docker run --volumes-from data_container ubuntu  // 新的容器从data_container里加载数据</span><br><span class="line">docker run -it --volumes-from data_container ubuntu /bin.bash // 创建后可以直接进入容器内</span><br></pre></td></tr></table></figure><h3 id="Registry"><a href="#Registry" class="headerlink" title="Registry"></a>Registry</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker search ubuntu</span><br><span class="line">docker pull ubuntu</span><br><span class="line">docker push myname/ubuntu</span><br></pre></td></tr></table></figure><h3 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h3><ol><li>安装<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(<span class="built_in">uname</span> -s)-$(<span class="built_in">uname</span> -m) &gt; /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure></li><li>授权<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> a+x /usr/local/bin/docker-compose // 给所有用户授权执行</span><br></pre></td></tr></table></figure></li><li>使用<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker-compose --version  // 查看版本</span><br><span class="line">docker-compose build  // 构建镜像</span><br><span class="line">docker-compose up -d  // 启动容器</span><br><span class="line">docker-compose stop  // 停止容器</span><br><span class="line">docker-compose <span class="built_in">rm</span>  // 删除容器</span><br><span class="line">docker-compose ps</span><br></pre></td></tr></table></figure></li></ol><p>官方文档： <a href="https://docs.docker.com/compose/">https://docs.docker.com/compose/</a><br>下载地址： <a href="https://github.com/docker/compose/releases">https://github.com/docker/compose/releases</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docs </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mysql </tag>
+            
+            <tag> mongoDB </tag>
+            
+            <tag> redis </tag>
+            
+            <tag> git </tag>
+            
+            <tag> docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>python3下读取redis返回bytes类型的问题</title>
+      <link href="/posts/ec1f4cbd/"/>
+      <url>/posts/ec1f4cbd/</url>
+      
+        <content type="html"><![CDATA[<p><strong>问题</strong></p><p>使用python连接redis，读取数据时返回的是bytes类型</p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/09/23/f3d1bc94d6a48fd3c77426f51333007a.png"></p><p><strong>解决方法</strong></p><p>首先查看连接方法StrictRedis的构造方法</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, host=<span class="string">&#x27;localhost&#x27;</span>, port=<span class="number">6379</span>,</span></span><br><span class="line"><span class="params">             db=<span class="number">0</span>, password=<span class="literal">None</span>, socket_timeout=<span class="literal">None</span>,</span></span><br><span class="line"><span class="params">             socket_connect_timeout=<span class="literal">None</span>,</span></span><br><span class="line"><span class="params">             socket_keepalive=<span class="literal">None</span>, socket_keepalive_options=<span class="literal">None</span>,</span></span><br><span class="line"><span class="params">             connection_pool=<span class="literal">None</span>, unix_socket_path=<span class="literal">None</span>,</span></span><br><span class="line"><span class="params">             encoding=<span class="string">&#x27;utf-8&#x27;</span>, encoding_errors=<span class="string">&#x27;strict&#x27;</span>,</span></span><br><span class="line"><span class="params">             charset=<span class="literal">None</span>, errors=<span class="literal">None</span>,</span></span><br><span class="line"><span class="params">             decode_responses=<span class="literal">False</span>, retry_on_timeout=<span class="literal">False</span>,</span></span><br><span class="line"><span class="params">             ssl=<span class="literal">False</span>, ssl_keyfile=<span class="literal">None</span>, ssl_certfile=<span class="literal">None</span>,</span></span><br><span class="line"><span class="params">             ssl_cert_reqs=<span class="literal">None</span>, ssl_ca_certs=<span class="literal">None</span>,</span></span><br><span class="line"><span class="params">             max_connections=<span class="literal">None</span></span>):</span><br></pre></td></tr></table></figure><p>decode_responses&#x3D;False这个参数决定返回结果是否decode,所以只需要设置连接将其改为true即可</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sr = StrictRedis(host=<span class="string">&#x27;localhost&#x27;</span>, port=<span class="number">6379</span>,decode_responses=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> redis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker-compose启动后其中的web容器立刻停止</title>
+      <link href="/posts/9fd46b0b/"/>
+      <url>/posts/9fd46b0b/</url>
+      
+        <content type="html"><![CDATA[<p><strong>背景</strong></p><p>​        使用docker-compose+django+uwsgi+nginx部署网站时，刚一启动web容器就停止了，也导致nginx启动失败。</p><p><strong>原因</strong></p><p>​        uwsgi.ini配置中添加了 daemonize&#x3D;uwsgi.log 导致uwsgi程序日志输出到指定的文件， 进程会在后台运行，docker前台没有程序运行，所以停止了。</p><p>​        Docker容器同时只能管理一个进程，如果这个进程退出那么容器也就退出了，但这不表示容器只能运行一个进程(其他进程可在后台运行)，但是要使容器不退出必须有一个前台执行的进程。</p><p><strong>解决方法</strong></p><p>​        将daemonize&#x3D;uwsgi.log注释或者删除即可。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> docker </tag>
+            
+            <tag> docker-compose </tag>
+            
+            <tag> django </tag>
+            
+            <tag> uwsgi </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pip更换国内源</title>
+      <link href="/posts/942da6d9/"/>
+      <url>/posts/942da6d9/</url>
+      
+        <content type="html"><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、pip直接安装时速度比较慢，所以使用国内源，可以加速下载模块的速度</span><br><span class="line">2、常用pip源：</span><br><span class="line">-- 豆瓣：https://pypi.douban.com/simple</span><br><span class="line">-- 阿里：https://mirrors.aliyun.com/pypi/simple</span><br><span class="line">-- 清华：https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line">-- 中国科技大学：https://pypi.mirrors.ustc.edu.cn/simple</span><br><span class="line">3、临时使用以下命令加速安装：</span><br><span class="line">-- pip install -i https://pypi.douban.com/simple 模块名</span><br></pre></td></tr></table></figure><h2 id="永久配置安装源"><a href="#永久配置安装源" class="headerlink" title="永久配置安装源"></a>永久配置安装源</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、资源管理器地址栏输入 %APPDATA% 然后回车，可以直接进入 C:\Users\用户名\AppData\Roaming 目录</span><br><span class="line">2、在此目录下新建 pip 文件夹，并在文件夹中新建 pip.ini 配置文件</span><br><span class="line">3、在 pip.ini 进行配置</span><br></pre></td></tr></table></figure><h3 id="MacOS、Linux"><a href="#MacOS、Linux" class="headerlink" title="MacOS、Linux"></a>MacOS、Linux</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、在用户家目录下创建 .pip 隐藏文件夹，如果已经有了可以跳过</span><br><span class="line">-- mkdir ~/.pip</span><br><span class="line">2、进入 .pip 隐藏文件夹并创建 pip.conf 配置文件</span><br><span class="line">-- cd ~/.pip &amp;&amp; touch pip.conf</span><br><span class="line">3、在 pip.conf 进行配置</span><br></pre></td></tr></table></figure><h3 id="配置文件内容"><a href="#配置文件内容" class="headerlink" title="配置文件内容"></a>配置文件内容</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[global]</span></span><br><span class="line"><span class="attr">index-url</span> = https://pypi.douban.com/simple</span><br><span class="line"><span class="section">[install]</span></span><br><span class="line"><span class="attr">use-mirrors</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">mirrors</span> = https://pypi.douban.com/simple</span><br><span class="line"><span class="attr">trusted-host</span> = pypi.douban.com</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> pip </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Git忽略规则(.gitignore配置）不生效原因和解决</title>
+      <link href="/posts/ede1601b/"/>
+      <url>/posts/ede1601b/</url>
+      
+        <content type="html"><![CDATA[<p><strong>问题</strong>：</p><p>​        .gitignore中已经标明忽略的文件目录下的文件，git push的时候还会出现在push的目录中，或者用git status查看状态，想要忽略的文件还是显示被追踪状态。</p><p><strong>回答</strong>：</p><p>​        因为在git忽略目录中，新建的文件在git中会有缓存，如果某些文件已经被纳入了版本管理中，就算是在.gitignore中已经声明了忽略路径也是不起作用的，这时候应该先把本地缓存删除，然后再进行git的提交，这样就不会出现忽略的文件了。</p><p><strong>解决方法</strong>：</p><ul><li><p>git清除本地缓存（改变成未track状态），然后再提交（此方法会删除所有git提交记录，不推荐）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">rm</span> -r --cached .</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&#x27;update .gitignore&#x27;</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></li><li><p>在每个clone下来的仓库中手动设置不要检查特定文件的更改情况。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git update-index --assume-unchanged PATH  <span class="comment"># PATH处输入要忽略的文件</span></span><br></pre></td></tr></table></figure></li></ul><p><strong>在使用.gitignore文件后如何删除远程仓库中以前上传的此类文件而保留本地文件</strong></p><p>​        在使用git和github的时候，之前没有写.gitignore文件，就上传了一些没有必要的文件，在添加了.gitignore文件后，就想删除远程仓库中的文件但想保存本地的文件，使用以下命令处理：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">rm</span> -r –cached directory  <span class="comment"># directory 为想要删除的文件夹</span></span><br><span class="line">git commit -m <span class="string">&quot;delete directory&quot;</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure><p>​        这样远程仓库中的文件就被删除了，以后再使用 <code>git add -A</code>来添加修改的内容，上传的文件就会受到.gitignore文件的约束。</p><p>参考链接： <a href="https://www.cnblogs.com/rainbowk/p/10932322.html">https://www.cnblogs.com/rainbowk/p/10932322.html</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Git </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> gitignore </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>matplotlib设置中文显示</title>
+      <link href="/posts/695ebb9c/"/>
+      <url>/posts/695ebb9c/</url>
+      
+        <content type="html"><![CDATA[<p>​matplotlib默认不支持中文字符，因为默认的英文字体无法显示汉字。</p><ul><li><p>查看Linux&#x2F;Mac下面支持的字体</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fc-list 查看支持的字体</span><br><span class="line">fc-list :lang=zh 查看支持的中文（冒号前面有空格）</span><br></pre></td></tr></table></figure></li><li><p>修改matplotlib字体</p><blockquote><ol><li>通过matplotlib.rc修改（Windows&#x2F;Linux），不过测试并没有成功</li></ol></blockquote>   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line">font = &#123;<span class="string">&quot;family&quot;</span>: <span class="string">&quot;Microsoft Yahei&quot;</span>&#125;</span><br><span class="line">matplotlib.rc(<span class="string">&quot;font&quot;</span>, **font)</span><br></pre></td></tr></table></figure><blockquote><ol start="2"><li>通过matplotlib下的font_manager修改（Windows&#x2F;Linux&#x2F;Mac），测试成功</li></ol></blockquote>   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> font_manager, pyplot</span><br><span class="line"><span class="comment"># fname里面的内容是通过fc-list :lang=zh命令查询到的系统支持的中文字体</span></span><br><span class="line">my_font = font_manager.FontProperties(fname=”/usr/share/fonts/truetype/arphic/uming.ttc”)</span><br><span class="line">a = [random.randint(<span class="number">20</span>,<span class="number">35</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">60</span>)]</span><br><span class="line">_b = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">60</span>))</span><br><span class="line">_bticks_labels = [“<span class="number">10</span>点%02d分” % i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">60</span>)]</span><br><span class="line">pyplot.figure(figsize=(<span class="number">30</span>,<span class="number">15</span>))</span><br><span class="line"><span class="comment"># rotation旋转的度数，fontproperties设置字体</span></span><br><span class="line">pyplot.xticks(_b[::<span class="number">10</span>], _bticks_labels[::<span class="number">10</span>], rotation=<span class="number">45</span>, fontproperties=my_font)</span><br><span class="line">pyplot.plot(_b,a)</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> matplotlib </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Requests小技巧和scrapy说明</title>
+      <link href="/posts/fd59dc2b/"/>
+      <url>/posts/fd59dc2b/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Requests小技巧"><a href="#Requests小技巧" class="headerlink" title="Requests小技巧"></a>Requests小技巧</h2><ul><li><code>requests.utils.dict_from_cookiejar</code> 把cookie对象转化为字典</li><li>请求SSL证书验证  <code>requests.get(&quot;&lt;https://www.12306.cn/mormhweb/&gt;&quot;, verify=False)</code></li><li>配合状态码判断是否请求成功 <code>assert response.status_code ==200</code></li></ul><h2 id="Scrapy"><a href="#Scrapy" class="headerlink" title="Scrapy"></a>Scrapy</h2><blockquote><p>爬虫库 python3.6以上</p></blockquote>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">asn1crypto==<span class="number">0.24</span><span class="number">.0</span></span><br><span class="line">attrs==<span class="number">19.1</span><span class="number">.0</span></span><br><span class="line">Automat==<span class="number">0.7</span><span class="number">.0</span></span><br><span class="line">certifi==<span class="number">2019.3</span><span class="number">.9</span></span><br><span class="line">cffi==<span class="number">1.12</span><span class="number">.3</span></span><br><span class="line">constantly==<span class="number">15.1</span><span class="number">.0</span></span><br><span class="line">cryptography==<span class="number">2.6</span><span class="number">.1</span></span><br><span class="line">cssselect==<span class="number">1.0</span><span class="number">.3</span></span><br><span class="line">hyperlink==<span class="number">19.0</span><span class="number">.0</span></span><br><span class="line">idna==<span class="number">2.8</span></span><br><span class="line">incremental==<span class="number">17.5</span><span class="number">.0</span></span><br><span class="line">lxml==<span class="number">4.3</span><span class="number">.3</span></span><br><span class="line">parsel==<span class="number">1.5</span><span class="number">.1</span></span><br><span class="line">pyasn1==<span class="number">0.4</span><span class="number">.5</span></span><br><span class="line">pyasn1-modules==<span class="number">0.2</span><span class="number">.5</span></span><br><span class="line">pycparser==<span class="number">2.19</span></span><br><span class="line">PyDispatcher==<span class="number">2.0</span><span class="number">.5</span></span><br><span class="line">PyHamcrest==<span class="number">1.9</span><span class="number">.0</span></span><br><span class="line">PyMySQL==<span class="number">0.9</span><span class="number">.3</span></span><br><span class="line">pyOpenSSL==<span class="number">19.0</span><span class="number">.0</span></span><br><span class="line">pywin32==<span class="number">224</span></span><br><span class="line">queuelib==<span class="number">1.5</span><span class="number">.0</span></span><br><span class="line">Scrapy==<span class="number">1.6</span><span class="number">.0</span></span><br><span class="line">service-identity==<span class="number">18.1</span><span class="number">.0</span></span><br><span class="line">six==<span class="number">1.12</span><span class="number">.0</span></span><br><span class="line">Twisted==<span class="number">19.2</span><span class="number">.0</span></span><br><span class="line">w3lib==<span class="number">1.20</span><span class="number">.0</span></span><br><span class="line">wincertstore==<span class="number">0.2</span></span><br><span class="line">zope.interface==<span class="number">4.6</span><span class="number">.0</span></span><br></pre></td></tr></table></figure><blockquote><p>常用命令</p></blockquote><ul><li>全局命令<a href="%E4%B8%8D%E8%BF%9B%E5%85%A5%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E5%8D%B3%E5%8F%AF%E8%BF%90%E8%A1%8C">^1</a><ul><li>fetch: 用来显示爬虫爬取过程</li><li>runspider: 可以实现不依托scrapy的爬虫项目，直接运行一个爬虫文件。</li><li>settings:</li><li>shell:</li><li>startproject:</li><li>version:</li><li>view:可以下载某个网页并用浏览器查看。</li></ul></li><li>项目命令<ul><li>bench: 可以测试本地硬件的性能； 运行scrapy bench 时，会创建一个本地服务器并以最大速度爬行</li><li>check: 爬虫测试比较麻烦，所以在scrapy中使用合同（contract）的方式对爬虫进行测试。<br><code>scrapy check [爬虫名]</code></li><li>crawl</li><li>edit: Linux中可以直接打开编辑器编辑爬虫文件</li><li>genspider: 有多个模板可供选择 参数 -t crawl</li><li>list: 列出当前可以使用的爬虫文件</li><li>parse: 获取指定的网址，使用对应的爬虫文件处理和分析</li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> requests </tag>
+            
+            <tag> scrapy </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>urllib添加头信息的两种方法</title>
+      <link href="/posts/5254b9a/"/>
+      <url>/posts/5254b9a/</url>
+      
+        <content type="html"><![CDATA[<h2 id="使用-build-opener"><a href="#使用-build-opener" class="headerlink" title="使用 build_opener"></a>使用 build_opener</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;https://www.baidu.com&quot;</span></span><br><span class="line"><span class="comment"># req = urllib.request.urlopen(url)</span></span><br><span class="line">headers = (<span class="string">&quot;User-Agent&quot;</span>, <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&quot;</span>)</span><br><span class="line"><span class="comment"># 使用 build_opener</span></span><br><span class="line">opener = urllib.request.build_opener()</span><br><span class="line">opener.addheaders = [headers]</span><br><span class="line"><span class="comment"># req = opener.open(url)</span></span><br><span class="line"></span><br><span class="line">urllib.request.install_opener(opener)</span><br><span class="line">req = urllib.request.urlopen(url)</span><br></pre></td></tr></table></figure><h2 id="使用-add-header"><a href="#使用-add-header" class="headerlink" title="使用 add_header"></a>使用 add_header</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 add_header</span></span><br><span class="line">req = urllib.request.Request(url)</span><br><span class="line">req.add_header(<span class="string">&quot;User-Agent&quot;</span>, <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&quot;</span>)</span><br><span class="line">res = urllib.request.urlopen(req)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(res.read())</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> urllib </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>安装pyqt时报错</title>
+      <link href="/posts/7583b932/"/>
+      <url>/posts/7583b932/</url>
+      
+        <content type="html"><![CDATA[<p>安装pyqt5 时出现错误， 提示 <code>could not fetch URL</code>，最后检查发现原来是开了fiddler，关闭fiddler即可</p><pre><code>![](https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/228d472d3db177a3c03a2f058fdc7505.png)</code></pre><p>解决方法链接：<a href="https://blog.csdn.net/jiang_xiaoo24/article/details/87689369">https://blog.csdn.net/jiang_xiaoo24/article/details/87689369</a></p><p>  ​</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> pyqt </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>批处理文件运行python程序</title>
+      <link href="/posts/2e9e806c/"/>
+      <url>/posts/2e9e806c/</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/ad18833c934078075fffe616570a4841.png"></p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/80ab4633e92e0290197446da111dec4f.png"></p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/fdace5bfcad75ffe0b243156ff54f496.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 批处理 </tag>
+            
+            <tag> windows </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ubuntu 16.04虚拟机使用jupyter notebook报错</title>
+      <link href="/posts/2157fcb1/"/>
+      <url>/posts/2157fcb1/</url>
+      
+        <content type="html"><![CDATA[<p>本来打算使用下jupyter notebook，结果运行时报错了</p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/e0e1a1a313b4fdd21b92fbbe206b1bdf.png"></p><blockquote><p>然后，根据搜索引擎结果尝试卸载重装</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -H pip uninstall jupyter notebook</span><br><span class="line">sudo -H pip install jupyter notebook</span><br></pre></td></tr></table></figure><blockquote><p>安装时又提示错误    <code>Cannot uninstall &#39;ipython&#39;</code>  </p></blockquote><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/11df463c51409c3e8436a11973c7771b.png"></p><p>根据上面的提示又直接使用命令安装ipython <code>pip install ipython</code>，发现并没有解决问题</p><p>最终搜索到解决方法，运行下面的命令强制更新，更新完成后，重新打开jupyter notebook成功。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 install --ignore-installed ipython --upgrade</span><br></pre></td></tr></table></figure><br><p>参考链接： <a href="https://www.jianshu.com/p/94caf01dd9a6">https://www.jianshu.com/p/94caf01dd9a6</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> jupyter notebook </tag>
+            
+            <tag> ubuntu </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux常用命令</title>
+      <link href="/posts/d0edc1ed/"/>
+      <url>/posts/d0edc1ed/</url>
+      
+        <content type="html"><![CDATA[<h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><ul><li><p>lslist查看当前文件夹下的内容</p><ul><li><p>-a  显示指定目录下所有子目录与文件，包括隐藏文件<br>-l  以列表方式显示文件的详细信息<br>-h  配合 -l 以人性化的方式显示文件大小</p><p>pwd   print wrok directory查看当前所在文件夹</p><p>cd [目录名]change directory切换文件夹</p><p>cd  切换到当前用户的主目录(&#x2F;home&#x2F;用户目录)<br>cd ~   切换到当前用户的主目录(&#x2F;home&#x2F;用户目录)<br>cd .  保持在当前目录不变<br>cd ..   切换到上级目录<br>cd -  可以在最近两次工作目录之间来回切换</p></li></ul></li><li><p>创建和删除操作</p><ul><li>touch [文件名]   touch 如果文件不存在，新建文件<ul><li>创建文件或修改文件时间<ul><li>如果文件 不存在，可以创建一个空白文件</li><li>如果文件 已经存在，可以修改文件的末次修改日期</li></ul></li></ul></li><li>mkdir [目录名]   make directory  创建目录<ul><li>-p可以递归创建目录<br>rm [文件名] remove删除指定的文件名<br>   -f强制删除，忽略不存在的文件，无需提示<br>   -r递归地删除目录下的内容，删除文件夹 时必须加此参数<br>clearclear清屏</li></ul></li></ul></li><li><p>拷贝和移动文件</p><ul><li>tree [目录名] tree以树状图列出文件目录结构<ul><li>-d只显示目录<br>cp 源文件 目标文件copy复制文件或者目录<br>   -i覆盖文件前提示<br>   -r若给出的源文件是目录文件，则 cp 将递归复制该目录下的所有子目录和文件，目标  文件必须为一个目录名<br>mv 源文件 目标文件move移动文件或者目录／文件或者目录重命名</li><li>-i覆盖文件前提示</li></ul></li></ul></li><li><p>查看文件内容</p><ul><li><p>cat 文件名   concatenate查看文件内容、创建文件、文件合并、追加文件内容等</p><p><em>cat 命令可以用来 查看文件内容、创建文件、文件合并、追加文件内容 等功能，cat 会一次显示所有的内容，适合 查看内容较少 的文本文件。</em></p><ul><li>-b对非空输出行编号<br>-n对输出的所有行编号</li></ul></li><li><p>more 文件名    more   分屏显示文件内容</p><p><em>more 命令可以用于分屏显示文件内容，每次只显示一页内容适合于 查看内容较多的文本文件。</em></p><ul><li><p>空格键显示手册页的下一屏<br>Enter 键一次滚动手册页的一行<br> b回滚一屏<br> f前滚一屏<br> q退出<br> &#x2F;word搜索 word 字符串</p><pre><code>grep 搜索文本 文件名  grep   搜索文本文件内容</code></pre></li></ul><p><em>Linux 系统中 grep 命令是一种强大的文本搜索工具，grep允许对文本文件进行 模式查找，所谓模式查找，即正则表达式。</em></p><ul><li>-n显示匹配行及行号<br>-v显示不包含匹配文本的所有行（相当于求反）<br> -i忽略大小写</li></ul></li></ul></li><li><p>其他</p><ul><li><p>echo 文字内容</p><ul><li>echo 会在终端中显示参数指定的文字，通常会和 重定向 联合使用</li></ul></li><li><p>重定向 &gt; 和 &gt;&gt;</p><p><em>Linux 允许将命令执行结果 重定向到一个 文件将本应显示在终端上的内容 输出／追加 到指定文件中</em></p><ul><li>&gt; 表示输出，会覆盖文件原有的内容</li><li>&gt;&gt; 表示追加，会将内容追加到已有文件的末尾</li></ul></li><li><p>管道 |</p><p><em>Linux 允许将 一个命令的输出 可以通过管道 做为 另一个命令的输入</em></p><ul><li>more：分屏显示内容</li><li>grep：在命令执行结果的基础上查询指定的文本</li></ul></li></ul></li><li><p>小技巧</p><ul><li>ctrl + - 缩小终端窗口的字体显示</li><li>ctrl + + 放大终端窗口的字体显示</li></ul></li></ul><h2 id="远程管理常用命令"><a href="#远程管理常用命令" class="headerlink" title="远程管理常用命令"></a>远程管理常用命令</h2><ul><li><p>关机&#x2F;重启</p><ul><li><p>shutdown</p><p><em>不指定选项和参数，默认表示 1 分钟之后 关闭电脑远程维护服务器时，最好不要关闭系统，而应该重新启动系统</em></p><ul><li>-r重新启动</li><li># 重新启动操作系统，其中 now 表示现在 $ shutdown -r now</li><li># 立刻关机，其中 now 表示现在 $ shutdown now</li><li># 系统在今天的 20:25 会关机 $ shutdown 20:25</li><li># 系统再过十分钟后自动关机 $ shutdown +10</li><li># 取消之前指定的关机计划 $ shutdown -c</li></ul></li></ul></li><li><p>查看或配置网卡信息</p><ul><li><p>ifconfig</p><p><em>一台计算机中有可能会有一个 物理网卡 和 多个虚拟网卡，在 Linux 中物理网卡的名字通常以 ensXX 表示127.0.0.1 被称为 本地回环&#x2F;环回地址，一般用来测试本机网卡是否正常</em></p><ul><li># 查看网卡配置信息 $ ifconfig</li><li># 查看网卡对应的 IP 地址 $ ifconfig | grep inet</li></ul></li><li><p>ping</p></li></ul></li><li><p>远程登录和复制文件</p><ul><li><p>ssh</p><p><em>SSH 客户端是一种使用 Secure Shell（SSH） 协议连接到远程计算机的软件程序。SSH 是目前较可靠，专为远程登录会话和其他网络服务 提供安全性的协议，利用 SSH 协议可以有效防止远程管理过程中的信息泄露，通过 SSH 协议 可以对所有传输的数据进行加密，也能够防止 DNS 欺骗和 IP 欺骗；SSH 的另一项优点是传输的数据可以是经过压缩的，所以可以加快传输的速度。</em></p><ul><li>01ssh 用户名@ipsecure shell关机／重新启动<br>02scp 用户名@ip:文件名或路径 用户名@ip:文件名或路径secure copy远程复制文件</li><li>SSH 客户端的简单使用<ul><li>ssh [-p port] user@remote</li></ul></li><li>常见服务端口号列表：<ul><li><p>服务    端口号<br>SSH       22<br>Web      80</p><p>HTTPS  443<br>FTP        21</p></li></ul></li></ul></li><li><p>scp</p><ul><li>它的地址格式与 ssh 基本相同，需要注意的是，在指定端口时用的是大写的 -P 而不是小写的<br>-r若给出的源文件是目录文件，则 scp 将递归复制该目录下的所有子目录和文件，目标文件必须为一个目录名<br> -P若远程 SSH 服务器的端口不是 22，需要使用大写字母 -P 选项指定端口</li><li># 把本地当前目录下的 01.py 文件 复制到 远程 家目录下的 Desktop&#x2F;01.py<ul><li># 注意：<code>:</code> 后面的路径如果不是绝对路径，则以用户的家目录作为参照路径</li><li>scp -P port 01.py user@remote:Desktop&#x2F;01.py</li></ul></li><li># 把远程 家目录下的 Desktop&#x2F;01.py 文件 复制到 本地当前目录下的 01.py<ul><li>scp -P port user@remote:Desktop&#x2F;01.py 01.py # 加上 -r 选项可以传送文件夹</li></ul></li><li># 把当前目录下的 demo 文件夹 复制到 远程 家目录下的 Desktop<ul><li>scp -r demo user@remote:Desktop</li></ul></li><li># 把远程 家目录下的 Desktop 复制到 当前目录下的 demo 文件夹<ul><li>scp -r user@remote:Desktop demo</li></ul></li></ul></li><li><p>SSH 高级</p><ul><li>免密码登录<ul><li>配置公钥<ul><li>执行 ssh-keygen 即可生成 SSH 钥匙，一路回车即可</li></ul></li><li>上传公钥到服务器<ul><li>执行 ssh-copy-id -p port user@remote，可以让远程服务器记住我们的公钥</li></ul></li></ul></li><li>配置别名<ul><li>每次都输入 ssh -p port user@remote，时间久了会觉得很麻烦，特别是当 user, remote 和 port 都得输入，而且还不好记忆</li><li>而 配置别名 可以让我们进一步偷懒，譬如用：ssh mac 来替代上面这么一长串，那么就在 ~&#x2F;.ssh&#x2F;config 里面追加以下内容：</li><li>Host mac HostName ip地址 User itheima Port 22</li><li>保存之后，即可用 ssh mac 实现远程登录了，scp 同样可以使用</li></ul></li></ul></li></ul></li></ul><h2 id="用户权限相关命令"><a href="#用户权限相关命令" class="headerlink" title="用户权限相关命令"></a>用户权限相关命令</h2><ul><li><p>ls -l 可以查看文件夹下文件的详细信息，从左到右依次是：</p><ul><li>权限，第 1 个字符如果是 d 表示目录</li><li>硬链接数，通俗地讲，就是有多少种方式，可以访问到当前目录／文件</li><li>拥有者，家目录下 文件／目录 的拥有者通常都是当前用户</li><li>组，在 Linux 中，很多时候，会出现组名和用户名相同的情况，后续会讲</li><li>大小</li><li>时间</li><li>名称</li></ul></li><li><p>chmod 简单使用</p><ul><li>chmod +&#x2F;-rwx 文件名|目录名</li></ul></li><li><p>sudo</p><ul><li>su 是 substitute user 的缩写，表示 使用另一个用户的身份</li><li>sudo 命令用来以其他身份来执行命令，预设的身份为 root</li><li>用户使用 sudo 时，必须先输入密码，之后有 5 分钟的有效期限，超过期限则必须重新输入密码</li><li>若其未经授权的用户企图使用 sudo，则会发出警告邮件给管理员</li></ul></li><li><p>组管理 终端命令</p><p><em>创建组 &#x2F; 删除组 的终端命令都需要通过 sudo 执行</em></p><ul><li>01groupadd 组名 添加组<br>02groupdel 组名 删除组<br> 03cat &#x2F;etc&#x2F;group 确认组信息<br> 04chgrp -R 组名 文件&#x2F;目录名递归修改文件&#x2F;目录的所属组</li><li>组信息保存在 &#x2F;etc&#x2F;group 文件中</li><li>&#x2F;etc 目录是专门用来保存 系统配置信息 的目录</li></ul></li><li><p>用户管理 终端命令</p><p><em>创建用户 &#x2F; 删除用户 &#x2F; 修改其他用户密码 的终端命令都需要通过 sudo 执行</em></p><ul><li><p>创建用户／设置密码／删除用户</p><ul><li>01useradd -m -g 组 新建用户名添加新用户-m 自动建立用户家目录-g 指定用户所在的组，否则会建立一个和同名的组<br>02passwd 用户名设置用户密码如果是普通用户，直接用 passwd 可以修改自己的账户密码<br> 03userdel -r 用户名删除用户-r 选项会自动删除用户家目录<br> 04cat &#x2F;etc&#x2F;passwd | grep 用户名 确认用户信息 新建用户后，用户信息会保存在 &#x2F;etc&#x2F;passwd 文件中</li><li>创建用户时，如果忘记添加 -m 选项指定新用户的家目录 —— 最简单的方法就是删除用户，重新创建</li><li>创建用户时，默认会创建一个和用户名同名的组名</li><li>用户信息保存在 &#x2F;etc&#x2F;passwd 文件中</li></ul></li><li><p>查看用户信息</p><ul><li><p>01id [用户名] 查看用户 UID 和 GID 信息</p><p>02who查看当前所有登录的用户列表</p><p>03whoami查看当前登录用户的账户名</p></li><li><p>passwd 文件</p><ul><li>&#x2F;etc&#x2F;passwd 文件存放的是用户的信息，由 6 个分号组成的 7 个信息，分别是</li><li>用户名</li><li>密码（x，表示加密的密码）</li><li>UID（用户标识）</li><li>GID（组标识）</li><li>用户全名或本地帐号</li><li>家目录</li><li>登录使用的 Shell，就是登录之后，使用的终端命令，ubuntu 默认是 dash</li></ul></li><li><p>usermod</p><ul><li>usermod 可以用来设置 用户 的 主组 ／ 附加组 和 登录 Shell，命令格式如下：</li><li>主组：通常在新建用户时指定，在 etc&#x2F;passwd 的第 4 列 GID 对应的组</li><li>附加组：在 etc&#x2F;group 中最后一列表示该组的用户列表，用于指定 用户的附加权限</li><li>提示：设置了用户的附加组之后，需要重新登录才能生效！</li><li># 修改用户的主组（passwd 中的 GID）usermod -g 组 用户名</li><li># 修改用户的附加组usermod -G 组 用户名</li><li># 修改用户登录 Shellusermod -s &#x2F;bin&#x2F;bash 用户名</li><li>注意：默认使用 useradd 添加的用户是没有权限使用 sudo 以 root 身份执行命令的，可以使用以下命令，将用户添加到 sudo 附加组中<ul><li>usermod -G sudo 用户名</li></ul></li></ul></li><li><p>which</p><p><em>&#x2F;etc&#x2F;passwd 是用于保存用户信息的文件&#x2F;usr&#x2F;bin&#x2F;passwd 是用于修改用户密码的程序</em></p><ul><li>which 命令可以查看执行命令所在位置</li><li>cd 这个终端命令是内置在系统内核中的，没有独立的文件，因此用 which 无法找到 cd 命令的位置</li></ul></li><li><p>bin 和 sbin</p><ul><li>在 Linux 中，绝大多数可执行文件都是保存在 &#x2F;bin、&#x2F;sbin、&#x2F;usr&#x2F;bin、&#x2F;usr&#x2F;sbin</li><li>&#x2F;bin（binary）是二进制执行文件目录，主要用于具体应用</li><li>&#x2F;sbin（system binary）是系统管理员专用的二进制代码存放目录，主要用于系统管理</li><li>&#x2F;usr&#x2F;bin（user commands for applications）后期安装的一些软件</li><li>&#x2F;usr&#x2F;sbin（super user commands for applications）超级用户的一些管理程序</li></ul></li><li><p>切换用户</p><ul><li>01su - 用户名 切换用户，并且切换目录 - 可以切换到用户家目录，否则保持位置不变<br>02exit 退出当前登录账户</li></ul></li></ul></li><li><p>修改文件权限</p><ul><li>01chown修改拥有者<ul><li># 修改文件|目录的拥有者<ul><li>chown 用户名 文件名|目录名<br>2chgrp修改组</li></ul></li><li># 递归修改文件|目录的组<ul><li>chgrp -R 组名 文件名|目录名<br>3chmod修改权限</li></ul></li><li># 递归修改文件权限<ul><li>chmod -R 755 文件名|目录名</li></ul></li></ul></li><li>chmod 在设置权限时，可以简单地使用三个数字分别对应 拥有者 ／ 组 和 其他 用户的权限</li></ul></li></ul></li></ul><h2 id="系统信息相关命令"><a href="#系统信息相关命令" class="headerlink" title="系统信息相关命令"></a>系统信息相关命令</h2><ul><li><p>时间和日期</p><ul><li>date查看系统时间<br>calcalendar 查看日历，-y 选项可以查看一年的日历</li></ul></li><li><p>磁盘和目录空间</p><ul><li>df -hdisk free 显示磁盘剩余空间<br>du -h [目录名] disk usage 显示目录下的文件大小</li><li>-h  以人性化的方式显示文件大小</li></ul></li><li><p>进程信息</p><ul><li><p>ps auxprocess status 查看进程的详细状况</p><p><em>ps 默认只会显示当前用户通过终端启动的应用程序</em></p><ul><li><p>a显示终端上的所有进程，包括其他用户的进程<br>u显示进程的详细状态<br> x显示没有控制终端的进程</p><pre><code>top动态显示运行中的进程并且排序</code></pre></li><li><p>要退出 top 可以直接输入 q</p></li></ul></li><li><p>kill [-9] 进程代号 终止指定代号的进程，-9 表示强行终止</p></li></ul></li><li><p>其他命令</p><ul><li>查找文件<ul><li>find<ul><li>find [路径] -name “*.py”查找指定路径下扩展名是 .py 的文件，包括子目录</li><li>如果省略路径，表示在当前文件夹下查找</li></ul></li></ul></li><li>软链接<ul><li>ln<ul><li>ln -s 被链接的源文件 链接文件<br>建立文件的软链接，用通俗的方式讲类似于 Windows 下的快捷方式</li><li>没有 -s 选项建立的是一个 硬链接文件<br>两个文件占用相同大小的硬盘空间，工作中几乎不会建立文件的硬链接</li><li>源文件要使用绝对路径，不能使用相对路径，这样可以方便移动链接文件后，仍然能够正常使用</li><li>硬链接简介<ul><li>在 Linux 中，文件名 和 文件的数据 是分开存储的</li><li>在 Linux 中，只有文件的 硬链接数 &#x3D;&#x3D; 0 才会被删除</li><li>使用 ls -l 可以查看一个文件的硬链接的数量</li></ul></li></ul></li></ul></li><li>打包和压缩<ul><li>打包 ／ 解包<ul><li># 打包文件 tar -cvf 打包文件.tar 被打包的文件／路径…</li><li># 解包文件 tar -xvf 打包文件.tar<br> c生成档案文件，创建打包文件<br> x解开档案文件<br> v列出归档解档的详细过程，显示进度<br> f指定档案文件名称，f 后面一定是 .tar 文件，所以必须放选项最后</li></ul></li><li>压缩／解压缩<ul><li>gzip<ul><li>tar 与 gzip 命令结合可以使用实现文件 打包和压缩<ul><li>tar 只负责打包文件，但不压缩</li><li>用 gzip 压缩 tar 打包后的文件，其扩展名一般用 xxx.tar.gz</li></ul></li><li>在 Linux 中，最常见的压缩文件格式就是 xxx.tar.gz</li><li>在 tar 命令中有一个选项 -z 可以调用 gzip，从而可以方便的实现压缩和解压缩的功能</li><li># 压缩文件 tar -zcvf 打包文件.tar.gz 被压缩的文件／路径…</li><li># 解压缩文件 tar -zxvf 打包文件.tar.gz</li><li># 解压缩到指定路径 tar -zxvf 打包文件.tar.gz -C 目标路径<ul><li>-C解压缩到指定目录，注意：要解压缩的目录必须存在</li></ul></li></ul></li><li>bzip2(two)<ul><li>tar 与 bzip2 命令结合可以使用实现文件 打包和压缩（用法和 gzip 一样）<ul><li>tar 只负责打包文件，但不压缩，</li><li>用 bzip2 压缩 tar 打包后的文件，其扩展名一般用 xxx.tar.bz2</li></ul></li><li>在 tar 命令中有一个选项 -j 可以调用 bzip2，从而可以方便的实现压缩和解压缩的功能</li><li># 压缩文件 tar -jcvf 打包文件.tar.bz2 被压缩的文件／路径…</li><li># 解压缩文件 tar -jxvf 打包文件.tar.bz2</li></ul></li></ul></li></ul></li><li>软件安装<ul><li>apt-get<ul><li># 1. 安装软件 $ sudo apt install 软件包</li><li># 2. 卸载软件 $ sudo apt remove 软件名</li><li># 3. 更新已安装的包 $ sudo apt upgrade</li></ul></li></ul></li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ubuntu </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ssh连接失败</title>
+      <link href="/posts/a28edf8d/"/>
+      <url>/posts/a28edf8d/</url>
+      
+        <content type="html"><![CDATA[<h2 id="问题：ssh-connect-to-host-xx-xxx-xxx-xxx-port-22-Connection-refused"><a href="#问题：ssh-connect-to-host-xx-xxx-xxx-xxx-port-22-Connection-refused" class="headerlink" title="问题：ssh: connect to host xx.xxx.xxx.xxx port 22: Connection refused."></a>问题：ssh: connect to host xx.xxx.xxx.xxx port 22: Connection refused.</h2><ol><li><p>检查是否安装ssh服务</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server</span><br><span class="line">sudo service ssh start |status</span><br></pre></td></tr></table></figure></li><li><p>检查是否开放22端口</p><blockquote><p>查看所有开放端口</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -aptn | grep 22</span><br></pre></td></tr></table></figure><p>Ubuntu开放端口方法</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update  # 更新源</span><br><span class="line">sudo apt-get install iptables  # 安装iptables</span><br><span class="line">sudo iptables -I INPUT -p tcp --dport 8388 -j ACCEPT  # 添加入站规则，开放8388端口</span><br><span class="line">sudo iptables -save  # 保存</span><br></pre></td></tr></table></figure></blockquote></li><li><p>最终解决方法</p><blockquote><p>查看ssh默认配置文件</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure><p>修改配置文件 在Port 28171 下增加 Port 22</p></blockquote><p> <img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/54dbeb03a6f9e5faea73012741753d6b.png"></p><blockquote><p>重启服务<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service ssh start</span><br></pre></td></tr></table></figure></p></blockquote></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ssh </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>部署awesome时报错</title>
+      <link href="/posts/cb42f876/"/>
+      <url>/posts/cb42f876/</url>
+      
+        <content type="html"><![CDATA[<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[program:awesome]</span><br><span class="line">command = /home/kcyln/srv/awesome/www/app.py</span><br><span class="line">directory = /home/kcyln/srv/awesome/www</span><br><span class="line">user = www-data</span><br><span class="line">startsecs = 3</span><br><span class="line"></span><br><span class="line">redirect_stderr = true</span><br><span class="line">stdout_logfile_maxbytes = 50MB</span><br><span class="line">stdout_logfile_backups = 10</span><br><span class="line">stdout_logfile = /home/kcyln/srv/awesome/log/app.log</span><br></pre></td></tr></table></figure><p>​    如上设置, 运行提示 is not executable</p><p>​    修改 <code>command = python3 /home/kcyln/srv/awesome/www/app.py</code></p><p>​    报错  Exited too quickly (process log may have details)</p><p>​    检查日志发现 提示     ModuleNotFoundError: No module named ‘markdown’</p><p>​    然而我已经使用 <code>pip install markdown</code> 安装成功了</p><p>​    尝试 使用虚拟环境，设置 </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command = /bin/bash -c &#x27;source &quot;0&quot; &amp;&amp; exec &quot;@&quot;&#x27; /home/kcyln/.virtualenvs/awesome_env/bin/activate ; python3 /home/kcyln/srv/awesome/www/app.py</span><br></pre></td></tr></table></figure><p>​    仍然失败</p><p>​    最后使用 <code>sudo apt-get install markdown &amp;&amp; sudo apt-get install python3-markdown</code></p><p>​    成功</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> supervisor </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
