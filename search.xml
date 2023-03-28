@@ -58,7 +58,7 @@
       <link href="/posts/23ccefd3/"/>
       <url>/posts/23ccefd3/</url>
       
-        <content type="html"><![CDATA[<h1 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a>深拷贝与浅拷贝</h1><h1 id="直接赋值"><a href="#直接赋值" class="headerlink" title="直接赋值"></a>直接赋值</h1><p>其实就是对象的引用（别名）。</p><p>​<code>a=[1,2,3]; b=a</code>​a与b享有相同的内存空间，指向同一个内存地址，</p><p>使用<code>a.append()</code>​添加元素后，b也会随之改变。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">a--&gt;A[1,2,3]</span><br><span class="line">b--&gt;A[1,2,3]</span><br></pre></td></tr></table></figure><h1 id="浅拷贝-copy"><a href="#浅拷贝-copy" class="headerlink" title="浅拷贝(copy)"></a>浅拷贝(copy)</h1><p>拷贝父对象，不会拷贝对象的内部的子对象。</p><ul><li>​<code>a.copy()</code>​与<code>copy.copy()</code>​结果一致；元组没有a.copy()方法；总之，当拷贝内容为不可变对象时，内存地址相同；当拷贝内容为可变对象时，内存地址不同。</li><li>​<code>a=[1,2]; b=a.copy()</code>​ a与b内存空间不同，a添加元素，不会改变b的值</li><li>​<code>a=[1,2]; b=[3,4]; c=(a,b); d=copy.copy(c)</code>​​ c与d内存空间相同，a添加元素，c与d的值都会改变<br>​<img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/0dadde732db71fd354f47f2608a27dda.jpg" alt="img|200">​</li><li>​<code>a=[1,2]; b=[3,4]; c=[a,b]; d=c.copy()</code>​copy对列表和元组的处理结果不同，c与d内存空间不同，c添加元素不会改变d的值， 但是如果是a添加元素，c与d的值都会改变<img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/585d5794b5a6797e9567fd24569c0a21.jpg" alt="img"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/24082676c8328aa2646b0932b90a0a2d.jpg" alt="img">​</li></ul><h1 id="深拷贝-deepcopy"><a href="#深拷贝-deepcopy" class="headerlink" title="深拷贝(deepcopy)"></a>深拷贝(deepcopy)</h1><p>copy 模块的 deepcopy 方法，完全拷贝了父对象及其子对象。<img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/aa6478a2eb42bd6ee9884c5b3b5d437d.jpg" alt="img"></p><table><thead><tr><th>类型</th><th>列表、字典</th><th>数字、字符串</th></tr></thead><tbody><tr><td>浅拷贝copy()</td><td>拷贝父对象，不会拷贝对象内部的子对象</td><td>等同于赋值操作</td></tr><tr><td>深拷贝deepcopy()</td><td>完全拷贝父对象及其子对象</td><td>等同于赋值操作</td></tr></tbody></table><h1 id="再次对比"><a href="#再次对比" class="headerlink" title="再次对比"></a>再次对比</h1><p>​<img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/eafee80391985f1344860c70c2943789.jpg" alt="img"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/4a3fd415051de3d3b3c6503bd65a17fd.jpg" alt="img"></p><p>‍</p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/dcb915179cb3e9bceffccd988e13ff02.jpg" alt="img"></p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/860092bb05d742c8b950be0245d53e2f.jpg" alt="img"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/9a59f06f3d5090af28f34f026a55ef67.jpg" alt="img"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/50f376cff780d2de0ddeec54b3c55d10.jpg" alt="img">​</p><p>‍</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a>深拷贝与浅拷贝</h1><h1 id="直接赋值"><a href="#直接赋值" class="headerlink" title="直接赋值"></a>直接赋值</h1><p>其实就是对象的引用（别名）。</p><p>​<code>a=[1,2,3]; b=a</code>​a与b享有相同的内存空间，指向同一个内存地址，</p><p>使用<code>a.append()</code>​添加元素后，b也会随之改变。</p><div class="mermaid-wrap"><pre class="mermaid-src" hidden>  graph LRa--&gt;A[1,2,3]b--&gt;A[1,2,3]  </pre></div><h1 id="浅拷贝-copy"><a href="#浅拷贝-copy" class="headerlink" title="浅拷贝(copy)"></a>浅拷贝(copy)</h1><p>拷贝父对象，不会拷贝对象的内部的子对象。</p><ul><li>​<code>a.copy()</code>​与<code>copy.copy()</code>​结果一致；元组没有a.copy()方法；总之，当拷贝内容为不可变对象时，内存地址相同；当拷贝内容为可变对象时，内存地址不同。</li><li>​<code>a=[1,2]; b=a.copy()</code>​ a与b内存空间不同，a添加元素，不会改变b的值</li><li>​<code>a=[1,2]; b=[3,4]; c=(a,b); d=copy.copy(c)</code>​​ c与d内存空间相同，a添加元素，c与d的值都会改变<br>​<img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/0dadde732db71fd354f47f2608a27dda.jpg" alt="img|200">​</li><li>​<code>a=[1,2]; b=[3,4]; c=[a,b]; d=c.copy()</code>​copy对列表和元组的处理结果不同，c与d内存空间不同，c添加元素不会改变d的值， 但是如果是a添加元素，c与d的值都会改变<img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/585d5794b5a6797e9567fd24569c0a21.jpg" alt="img"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/24082676c8328aa2646b0932b90a0a2d.jpg" alt="img">​</li></ul><h1 id="深拷贝-deepcopy"><a href="#深拷贝-deepcopy" class="headerlink" title="深拷贝(deepcopy)"></a>深拷贝(deepcopy)</h1><p>copy 模块的 deepcopy 方法，完全拷贝了父对象及其子对象。<img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/aa6478a2eb42bd6ee9884c5b3b5d437d.jpg" alt="img"></p><table><thead><tr><th>类型</th><th>列表、字典</th><th>数字、字符串</th></tr></thead><tbody><tr><td>浅拷贝copy()</td><td>拷贝父对象，不会拷贝对象内部的子对象</td><td>等同于赋值操作</td></tr><tr><td>深拷贝deepcopy()</td><td>完全拷贝父对象及其子对象</td><td>等同于赋值操作</td></tr></tbody></table><h1 id="再次对比"><a href="#再次对比" class="headerlink" title="再次对比"></a>再次对比</h1><p>​<img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/eafee80391985f1344860c70c2943789.jpg" alt="img"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/4a3fd415051de3d3b3c6503bd65a17fd.jpg" alt="img"></p><p>‍</p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/dcb915179cb3e9bceffccd988e13ff02.jpg" alt="img"></p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/860092bb05d742c8b950be0245d53e2f.jpg" alt="img"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/9a59f06f3d5090af28f34f026a55ef67.jpg" alt="img"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/50f376cff780d2de0ddeec54b3c55d10.jpg" alt="img">​</p><p>‍</p>]]></content>
       
       
       <categories>
@@ -282,31 +282,6 @@
     
     
     <entry>
-      <title>ssh连接失败</title>
-      <link href="/posts/a28edf8d/"/>
-      <url>/posts/a28edf8d/</url>
-      
-        <content type="html"><![CDATA[<h2 id="问题：ssh-connect-to-host-xx-xxx-xxx-xxx-port-22-Connection-refused"><a href="#问题：ssh-connect-to-host-xx-xxx-xxx-xxx-port-22-Connection-refused" class="headerlink" title="问题：ssh: connect to host xx.xxx.xxx.xxx port 22: Connection refused."></a>问题：ssh: connect to host xx.xxx.xxx.xxx port 22: Connection refused.</h2><ol><li><p>检查是否安装ssh服务</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server</span><br><span class="line">sudo service ssh start |status</span><br></pre></td></tr></table></figure></li><li><p>检查是否开放22端口</p><blockquote><p>查看所有开放端口</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -aptn | grep 22</span><br></pre></td></tr></table></figure><p>Ubuntu开放端口方法</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update  # 更新源</span><br><span class="line">sudo apt-get install iptables  # 安装iptables</span><br><span class="line">sudo iptables -I INPUT -p tcp --dport 8388 -j ACCEPT  # 添加入站规则，开放8388端口</span><br><span class="line">sudo iptables -save  # 保存</span><br></pre></td></tr></table></figure></blockquote></li><li><p>最终解决方法</p><blockquote><p>查看ssh默认配置文件</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure><p>修改配置文件 在Port 28171 下增加 Port 22</p></blockquote><p> <img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/54dbeb03a6f9e5faea73012741753d6b.png"></p><blockquote><p>重启服务<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service ssh start</span><br></pre></td></tr></table></figure></p></blockquote></li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> ssh </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Requests小技巧和scrapy说明</title>
       <link href="/posts/fd59dc2b/"/>
       <url>/posts/fd59dc2b/</url>
@@ -328,6 +303,31 @@
             <tag> requests </tag>
             
             <tag> scrapy </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ssh连接失败</title>
+      <link href="/posts/a28edf8d/"/>
+      <url>/posts/a28edf8d/</url>
+      
+        <content type="html"><![CDATA[<h2 id="问题：ssh-connect-to-host-xx-xxx-xxx-xxx-port-22-Connection-refused"><a href="#问题：ssh-connect-to-host-xx-xxx-xxx-xxx-port-22-Connection-refused" class="headerlink" title="问题：ssh: connect to host xx.xxx.xxx.xxx port 22: Connection refused."></a>问题：ssh: connect to host xx.xxx.xxx.xxx port 22: Connection refused.</h2><ol><li><p>检查是否安装ssh服务</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server</span><br><span class="line">sudo service ssh start |status</span><br></pre></td></tr></table></figure></li><li><p>检查是否开放22端口</p><blockquote><p>查看所有开放端口</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -aptn | grep 22</span><br></pre></td></tr></table></figure><p>Ubuntu开放端口方法</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update  # 更新源</span><br><span class="line">sudo apt-get install iptables  # 安装iptables</span><br><span class="line">sudo iptables -I INPUT -p tcp --dport 8388 -j ACCEPT  # 添加入站规则，开放8388端口</span><br><span class="line">sudo iptables -save  # 保存</span><br></pre></td></tr></table></figure></blockquote></li><li><p>最终解决方法</p><blockquote><p>查看ssh默认配置文件</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure><p>修改配置文件 在Port 28171 下增加 Port 22</p></blockquote><p> <img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/54dbeb03a6f9e5faea73012741753d6b.png"></p><blockquote><p>重启服务<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service ssh start</span><br></pre></td></tr></table></figure></p></blockquote></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ssh </tag>
             
         </tags>
       
@@ -433,9 +433,9 @@
       
         <tags>
             
-            <tag> Python </tag>
-            
             <tag> ubuntu </tag>
+            
+            <tag> Python </tag>
             
             <tag> jupyter notebook </tag>
             
