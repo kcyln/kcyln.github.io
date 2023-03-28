@@ -4,6 +4,85 @@
   
     
     <entry>
+      <title>docker的安装与使用</title>
+      <link href="/posts/d250866d/"/>
+      <url>/posts/d250866d/</url>
+      
+        <content type="html"><![CDATA[<h1 id="docker的安装与使用"><a href="#docker的安装与使用" class="headerlink" title="docker的安装与使用"></a>docker的安装与使用</h1><h1 id="docker安装-ubuntu"><a href="#docker安装-ubuntu" class="headerlink" title="docker安装-ubuntu"></a>docker安装-ubuntu</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 自动下载安装docker命令</span></span><br><span class="line">sudo wget -qO- https://get.docker.com | sh  </span><br><span class="line"><span class="comment"># 给与docker权限，不需sudo也可以执行; 自己测试输入命令后重启系统才生效</span></span><br><span class="line">sudo usermod -aG docker kcyln  </span><br></pre></td></tr></table></figure><h1 id="docker命令"><a href="#docker命令" class="headerlink" title="docker命令"></a>docker命令</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">docker info  <span class="comment"># 查看docker信息</span></span><br><span class="line"></span><br><span class="line">docker pull <span class="comment"># 拉取镜像</span></span><br><span class="line"></span><br><span class="line">docker build <span class="comment"># 创建镜像</span></span><br><span class="line"></span><br><span class="line">docker run <span class="comment"># 运行容器</span></span><br><span class="line"></span><br><span class="line">docker images   <span class="comment"># 查看镜像</span></span><br><span class="line"></span><br><span class="line">docker ps  <span class="comment"># 查看运行中的容器</span></span><br><span class="line"></span><br><span class="line">docker ps -a  <span class="comment"># 查看所有容器</span></span><br><span class="line"></span><br><span class="line">docker stop sdai3nf  <span class="comment"># 停止容器</span></span><br><span class="line"></span><br><span class="line">docker <span class="built_in">rm</span> ef87fse8  cf045930cd83 <span class="comment"># 删除停止的容器，可以同时删除多个容器</span></span><br><span class="line"></span><br><span class="line">docker rmi fd8efke  <span class="comment"># 删除镜像</span></span><br><span class="line"></span><br><span class="line">docker <span class="built_in">cp</span>  <span class="comment"># 在宿主机和容器之间拷贝文件</span></span><br><span class="line"></span><br><span class="line">docker commit <span class="comment"># 保存改动为新的镜像</span></span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">docker run ubuntu <span class="built_in">echo</span> hello docker</span><br><span class="line"></span><br><span class="line">docker run -p -d 8080:80 nginx</span><br><span class="line"></span><br><span class="line">docker <span class="built_in">cp</span> index.html cf045930cd83://usr/share/nginx/html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交命令，保存容器的更改，会返回一个新的镜像;最后的hello是镜像名</span></span><br><span class="line">docker commit -m <span class="string">&quot;hello&quot;</span> cf045930cd83 hello   </span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入容器内部</span></span><br><span class="line">docker <span class="built_in">exec</span> -it nginx /bin/bash  </span><br></pre></td></tr></table></figure><h1 id="dockerfile-编写"><a href="#dockerfile-编写" class="headerlink" title="dockerfile 编写"></a>dockerfile 编写</h1><ol><li>基本命令</li></ol><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span>   <span class="comment"># base image</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash">    <span class="comment"># 执行命令</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash">    <span class="comment"># 添加文件,比COPY更强，可以复制远程文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash">   <span class="comment"># 拷贝文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash">    <span class="comment"># 执行命令,程序入口</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span>  <span class="comment"># 暴露端口</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash">  <span class="comment"># 指定路径</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">MAINTAINER</span>  <span class="comment"># 维护者</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span>    <span class="comment">#  设置环境变量</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash">  <span class="comment"># 容器入口,如果没有CMD,从这里启动，如果有,那么CMD的内容就变成了这个的参数</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">USER</span>     <span class="comment"># 指定用户</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash">   <span class="comment">#  mount point</span></span></span><br></pre></td></tr></table></figure><ol start="2"><li>示例一</li></ol><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> alpine:latest</span><br><span class="line"></span><br><span class="line"><span class="keyword">MAINTAINER</span> kcyln  // 容器作者</span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&#x27;hello docker&#x27;</span></span></span><br></pre></td></tr></table></figure><p><strong>运行命令创建镜像</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker build -t hello .</span><br><span class="line"></span><br><span class="line">docker run​ hello  // 运行容器,输出内容</span><br></pre></td></tr></table></figure><ol start="3"><li>示例二</li></ol><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu</span><br><span class="line"></span><br><span class="line"><span class="keyword">MAINTAINER</span> kcyln</span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash">​ sed -i <span class="string">&#x27;s/archive.ubuntu.com/mirrors.ustc.edu.cn/g&#x27;</span> /etc/apt/sources.list</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash">​ apt-get update</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash">​ apt-get install -y nginx</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash">​ index.html /var/www/html</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash">​ [&amp;quot;/usr/sbin/nginx&amp;quot;, &amp;quot;-g&amp;quot;, &amp;quot;daemon off;&amp;quot;]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></span><br></pre></td></tr></table></figure><p><strong>运行命令创建镜像</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker build -t hello .</span><br><span class="line"></span><br><span class="line">docker run -d -p 8080:80 hello</span><br><span class="line"></span><br><span class="line">curl http://localhost:8080</span><br></pre></td></tr></table></figure><h1 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">docker run -v /usr/share/nginx/html nginx  // 挂载卷</span><br><span class="line"></span><br><span class="line">docker inspect nginx // 查看信息， 可以看到挂载卷宿主机的路径</span><br><span class="line"></span><br><span class="line">docker run -v <span class="variable">$PWD</span>/code:/usr/share/nginx/html nginx  // 挂载卷</span><br><span class="line"></span><br><span class="line">docker create -v <span class="variable">$PWD</span>/data:/var/mydata --name data_container ubuntu  // 创建一个用来提供数据的容器</span><br><span class="line"></span><br><span class="line">docker run --volumes-from data_container ubuntu  // 新的容器从data_container里加载数据</span><br><span class="line"></span><br><span class="line">docker run -it --volumes-from data_container ubuntu /bin.bash // 创建后可以直接进入容器内</span><br></pre></td></tr></table></figure><h1 id="registry"><a href="#registry" class="headerlink" title="registry"></a>registry</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker search ubuntu</span><br><span class="line"></span><br><span class="line">docker pull ubuntu</span><br><span class="line"></span><br><span class="line">docker push myname/ubuntu</span><br></pre></td></tr></table></figure><ul><li>dockerhub</li><li>daocloud</li><li>时速云</li><li>aliyun</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">docker search whalesay</span><br><span class="line"></span><br><span class="line">docker pull whalesay</span><br><span class="line"></span><br><span class="line">docker run whalesay cowsay haha</span><br><span class="line"></span><br><span class="line">docker tag whalesay myname/whalesay</span><br><span class="line"></span><br><span class="line">docker login</span><br><span class="line"></span><br><span class="line">docker push myname/whalesay</span><br></pre></td></tr></table></figure><h1 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h1><p>官方文档 :   <a href="https://docs.docker.com/compose/">https://docs.docker.com/compose/</a></p><p>下载地址：<a href="https://github.com/docker/compose/releases"> https://github.com/docker/compose/releases</a></p><p>完整命令:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(<span class="built_in">uname</span> -s)-$(<span class="built_in">uname</span> -m) &gt; /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> a+x /usr/local/bin/docker-compose // 给所有用户授权执行</span><br><span class="line"></span><br><span class="line">docker-compose --version  // 查看版本</span><br><span class="line"></span><br><span class="line">docker-compose build  // 构建镜像</span><br><span class="line"></span><br><span class="line">docker-compose up -d  // 启动容器</span><br><span class="line"></span><br><span class="line">docker-compose stop  // 停止容器</span><br><span class="line"></span><br><span class="line">docker-compose <span class="built_in">rm</span>  // 删除容器</span><br><span class="line"></span><br><span class="line">docker-compose ps</span><br></pre></td></tr></table></figure><p>示例： <a href="https://github.com/kcyln/ghostapp_demo_docker-compose">https://github.com/kcyln/ghostapp_demo_docker-compose</a></p><h1 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h1><p>docker mysql     <a href="https://github.com/docker-library/docs/tree/master/mysql/">https://github.com/docker-library/docs/tree/master/mysql/</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Redis入门</title>
+      <link href="/posts/6a343b7f/"/>
+      <url>/posts/6a343b7f/</url>
+      
+        <content type="html"><![CDATA[<h1 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h1><hr><blockquote><p>redis 官网 <a href="https://redis.io/download">https://redis.io/download</a></p><p>中文网站 <a href="http://www.redis.cn/">redis.cn</a>  <a href="https://www.redis.com.cn/">www.redis.com.cn</a></p><p>Redis 命令文档 <a href="http://doc.redisfans.com/">http://doc.redisfans.com/</a></p><p>github <a href="https://github.com/redis/redis">https://github.com/redis/redis</a></p><p>在线测试 <a href="https://try.redis.io/">https://try.redis.io</a></p></blockquote><p>‍</p><p>Redis（Remote Dictionary Server）：基于内存的 KV 键值对数据库</p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2023/03/28/8a2a9dbc87cc0349e4d0c161b8d2627b.png"></p><p><strong>优势、注意事项、应用</strong></p><ul><li>性能极高，读写速度可达 110000 次&#x2F;秒，81000 次&#x2F;秒</li><li>数据类型丰富，支持 list，set，zset，hash 等数据结构的存储</li><li>内存存储和持久化（RDB 和 AOF），可将内存中的数据异步写到硬盘，同时不影响继续服务；支持主从模式的数据备份。</li><li>分布式缓存，为 MySQL 数据库缓解压力</li><li>高可用架构搭配：单机、主从、哨兵、集群</li><li>缓存穿透、击穿、雪崩</li><li>分布式锁</li><li>队列</li><li>排行榜 + 点赞</li></ul><h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><ul><li>string</li><li>list</li><li>hash</li><li>set</li><li>zset</li></ul><p>‍</p><ul><li>bitmap</li><li>bitfield</li><li>geospatial</li><li>HyperLogLog</li><li>stream</li></ul><p>bitfield 位域  位域修改，溢出控制； 了解即可</p><p>stream 流  类似于消息队列，似乎使用不多，还是用 kafka 这类吧</p><p>‍</p><blockquote><p><strong>相关命令</strong></p></blockquote><h2 id="字符串（String）"><a href="#字符串（String）" class="headerlink" title="字符串（String）"></a>字符串（String）</h2><ol><li><p>既可以保存普通文字，也可以保存序列化的二进制数据</p></li><li><p>最大可以存储 512M 数据</p></li><li><p>字符串指令</p><ul><li>SET key value</li><li>GET key</li><li>DEL key</li><li>GETRANGE key 起始位置 结束位置 获得截取字符串内容（结束位置写-1 表示最后一位）</li><li>STRLEN key 获取字符串长度</li><li>SETEX key seconds value 设置带有过期时间（秒）的 key-value</li><li>PSETEX key milliseconds value 设置带有过期时间（毫秒）的 key-value</li><li>MSET key1 value1 key2 value2 设置多个 key-value</li><li>MGET key1 key2 获得多个 value</li><li>APPEND key value 用于在字符串结尾追加内容</li><li>INCR key 数字自增加 1</li><li>INCRBY key int 数字加上指定的整数值</li><li>INCRBYFLOAT key float 数字加上指定的浮点数（没有减去指定浮点数的命令，可以用此命令加负数实现）</li><li>DECR key 数字自增减 1</li><li>DECRBY key int 数字减去指定的整数值</li></ul></li></ol><h2 id="哈希（Hash）"><a href="#哈希（Hash）" class="headerlink" title="哈希（Hash）"></a>哈希（Hash）</h2><ol><li><p>格式类似于 Python 的字典</p></li><li><p>哈希指令</p><ul><li>HSET key key1 value1 设置哈希表字段</li><li>HMSET key key1 value1 key2 value2 设置哈希表多个字段</li><li>HGET key key1 获取哈希表字段值</li><li>HMGET key key1 key2 获取哈希表多个字段值</li><li>HGETALL key 获取哈希表所有字段值（key value 都会获取到）</li><li>HKEYS key 获得哈希表所有字段名</li><li>HLEN key 获得哈希表中的字段数量</li><li>HEXISTS key key1 判断哈希表是否存在某个字段，存在返回 1，不存在返回 0</li><li>HVALS key 获得哈希表所有字段值（只获取 value）</li><li>HDEL key key1 key2 删除哈希表的字段</li><li>HINCRBY key key1 int 让哈希表某个字段值加上指定的整数值（哈希表没有减法指令）</li><li>HINCRBYFLOAT key key1 float 让哈希表某个字段值加上指定的浮点数</li></ul></li></ol><h2 id="列表（List）"><a href="#列表（List）" class="headerlink" title="列表（List）"></a>列表（List）</h2><ol><li><p>格式类似于 Python 的列表</p></li><li><p>列表指令</p><ul><li>RPUSH key value1 value2 创建列表，向列表右侧插入内容</li><li>LPUSH key value1 value2 向列表左侧插入内容</li><li>LSET key index value 修改列表中的第几个值（index 索引，从 0 开始）</li><li>LRANGE key 起始位置 结束位置 获取列表起始位置与结束位置之间的内容（包含起始位置与结束位置）</li><li>LLEN key 获得列表长度</li><li>LINDEX key index 获得列表某个元素</li><li>LINSERT key [BEFORE|AFTER] value value1 在某个元素前面或后面插入新的元素</li><li>LPOP key 删除列表最左边的元素</li><li>RPOP key 删除列表最右边的元素</li><li>LREM key count value 删除列表某个元素，列表中可能有重复元素，count 表示删除几个，从左往右删除</li></ul></li></ol><h2 id="集合（Set）"><a href="#集合（Set）" class="headerlink" title="集合（Set）"></a>集合（Set）</h2><ol><li><p>集合中的元素不能重复，Redis 通过比较两个元素的哈希值来判断是否重复，为了加快比较速度，还会对哈希值进行排序，这样新插入的元素在判断哈希值时只要比较某个区间内的哈希值即可，也因此集合是无序的（或者说集合的顺序其实是按照哈希值排序的）</p></li><li><p>集合指令</p><ul><li>SADD key value1 value2 向集合中插入元素</li><li>SMEMBERS key 获得所有元素</li><li>SCARD key 获得集合长度</li><li>SISMEMBER key value 判断是否含有某个元素</li><li>SREM key value1 value2 删除元素</li><li>SPOP key 随机删除某个元素并返回删除的这个元素</li><li>SRANDMEMBER key count 随机返回集合中的元素 count 表示返回的元素的数量</li></ul></li></ol><h2 id="有序集合（Zset）"><a href="#有序集合（Zset）" class="headerlink" title="有序集合（Zset）"></a>有序集合（Zset）</h2><ol><li><p>有序集合是带有排序功能的集合，Redis 会按照元素分数值排序（分数值相同的情况下，会根据元素值计算出来的哈希值进行排序）</p><ul><li><p>有序集合是按照大小对元素进行排序的一种数据结构，Redis 要求列表中每个元素除了元素值以外，还需要有一个分数值，有序列表就是对分数值排序实现的元素的排序</p></li><li><p>关于有序集合为什么叫 Zset，而不是 Sorted Set</p><p>​<img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/22/ea13766dc5d6b3682c085b61f0b84691.jpg" alt="img">​</p></li></ul></li><li><p>有序集合指令</p><ul><li><p>ZADD key score value [score] [value] 创建一个有序集合，添加数据（value 需要用双引号括起来）</p></li><li><p>ZINCRBY key increment value 对元素的分数值进行加法运算 increment 是数字</p></li><li><p>ZREVRANGE key 起始位置 结束位置 获得有序集合的内容，降序</p></li><li><p>ZRANGE key 起始位置 结束位置 获得有序集合的内容，升序</p></li><li><p>ZCARD key 获得有序集合长度</p></li><li><p>ZCOUNT key score1 score2 查询某个分数值区间内的元素数量</p></li><li><p>ZSCORE key value 返回元素的分数值</p></li><li><p>ZRANGEBYSCORE key score1 score2 获得分数值区间内的集合内容，升序（小括号表示不包括 10， +inf 是正无穷，-inf 是负无穷）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ZRANGEBYSCORE keyword 5 10</span><br><span class="line">ZRANGEBYSCORE keyword 5 (10</span><br><span class="line">ZRANGEBYSCORE keyword 5 +inf</span><br></pre></td></tr></table></figure></li><li><p>ZREVRANGEBYSCORE key score1 score2 获得分数值区间内的集合内容，降序（分数值要反着写）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZREVRANGEBYSCORE keyword 10 5</span><br></pre></td></tr></table></figure></li><li><p>ZRANK key value 获得元素的升序排名（从 0 开始）</p></li><li><p>ZREVRANK key value 获得元素的降序排名（从 0 开始）</p></li><li><p>ZREM key value1 value2 删除有序集合中的元素</p></li><li><p>ZREMRANGEBYRANK key start stop 删除排名区间内的元素</p></li><li><p>ZREMRANGEBYSCORE key score1 score2 删除分数值区间内的元素</p></li></ul></li></ol><h1 id="Key命令"><a href="#Key命令" class="headerlink" title="Key命令"></a>Key命令</h1><ul><li>DEL key 删除记录</li><li>EXISTS key 判断是否存在某个key，存在返回1，否则返回0</li><li>EXPIRE key seconds 设置过期时间（秒） PEXPIRE 是毫秒</li><li>EXPIREAT key timestamp 设置记录的过期时间（UNIX时间戳）</li><li>MOVE key 1 把记录迁移到其他逻辑库</li><li>RENAME key key1 修改key名称</li><li>PERSIST key 移除过期时间</li><li>TYPE key 判断value的数据类型</li></ul><h1 id="其他指令"><a href="#其他指令" class="headerlink" title="其他指令"></a>其他指令</h1><ul><li>FLUSHDB 清空当前数据库</li><li>FLUSHALL 清理所有数据库中的数据</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Redis </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> redis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>深拷贝与浅拷贝</title>
+      <link href="/posts/23ccefd3/"/>
+      <url>/posts/23ccefd3/</url>
+      
+        <content type="html"><![CDATA[<h1 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a>深拷贝与浅拷贝</h1><h1 id="直接赋值"><a href="#直接赋值" class="headerlink" title="直接赋值"></a>直接赋值</h1><p>其实就是对象的引用（别名）。</p><p>​<code>a=[1,2,3]; b=a</code>​a与b享有相同的内存空间，指向同一个内存地址，</p><p>使用<code>a.append()</code>​添加元素后，b也会随之改变。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">a--&gt;A[1,2,3]</span><br><span class="line">b--&gt;A[1,2,3]</span><br></pre></td></tr></table></figure><h1 id="浅拷贝-copy"><a href="#浅拷贝-copy" class="headerlink" title="浅拷贝(copy)"></a>浅拷贝(copy)</h1><p>拷贝父对象，不会拷贝对象的内部的子对象。</p><ul><li>​<code>a.copy()</code>​与<code>copy.copy()</code>​结果一致；元组没有a.copy()方法；总之，当拷贝内容为不可变对象时，内存地址相同；当拷贝内容为可变对象时，内存地址不同。</li><li>​<code>a=[1,2]; b=a.copy()</code>​ a与b内存空间不同，a添加元素，不会改变b的值</li><li>​<code>a=[1,2]; b=[3,4]; c=(a,b); d=copy.copy(c)</code>​​ c与d内存空间相同，a添加元素，c与d的值都会改变<br>​<img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/0dadde732db71fd354f47f2608a27dda.jpg" alt="img|200">​</li><li>​<code>a=[1,2]; b=[3,4]; c=[a,b]; d=c.copy()</code>​copy对列表和元组的处理结果不同，c与d内存空间不同，c添加元素不会改变d的值， 但是如果是a添加元素，c与d的值都会改变<img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/585d5794b5a6797e9567fd24569c0a21.jpg" alt="img"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/24082676c8328aa2646b0932b90a0a2d.jpg" alt="img">​</li></ul><h1 id="深拷贝-deepcopy"><a href="#深拷贝-deepcopy" class="headerlink" title="深拷贝(deepcopy)"></a>深拷贝(deepcopy)</h1><p>copy 模块的 deepcopy 方法，完全拷贝了父对象及其子对象。<img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/aa6478a2eb42bd6ee9884c5b3b5d437d.jpg" alt="img"></p><table><thead><tr><th>类型</th><th>列表、字典</th><th>数字、字符串</th></tr></thead><tbody><tr><td>浅拷贝copy()</td><td>拷贝父对象，不会拷贝对象内部的子对象</td><td>等同于赋值操作</td></tr><tr><td>深拷贝deepcopy()</td><td>完全拷贝父对象及其子对象</td><td>等同于赋值操作</td></tr></tbody></table><h1 id="再次对比"><a href="#再次对比" class="headerlink" title="再次对比"></a>再次对比</h1><p>​<img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/eafee80391985f1344860c70c2943789.jpg" alt="img"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/4a3fd415051de3d3b3c6503bd65a17fd.jpg" alt="img"></p><p>‍</p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/dcb915179cb3e9bceffccd988e13ff02.jpg" alt="img"></p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/860092bb05d742c8b950be0245d53e2f.jpg" alt="img"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/9a59f06f3d5090af28f34f026a55ef67.jpg" alt="img"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/21/50f376cff780d2de0ddeec54b3c55d10.jpg" alt="img">​</p><p>‍</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> copy </tag>
+            
+            <tag> deepcopy </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>常用安装</title>
       <link href="/posts/f4956656/"/>
       <url>/posts/f4956656/</url>
@@ -46,7 +125,7 @@
       
       <categories>
           
-          <category> Python </category>
+          <category> Redis </category>
           
       </categories>
       
@@ -54,6 +133,8 @@
         <tags>
             
             <tag> redis </tag>
+            
+            <tag> Python </tag>
             
         </tags>
       
@@ -71,7 +152,7 @@
       
       <categories>
           
-          <category> Python </category>
+          <category> Docker </category>
           
       </categories>
       
@@ -86,6 +167,8 @@
             
             <tag> uwsgi </tag>
             
+            <tag> Python </tag>
+            
         </tags>
       
     </entry>
@@ -97,7 +180,7 @@
       <link href="/posts/942da6d9/"/>
       <url>/posts/942da6d9/</url>
       
-        <content type="html"><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、pip直接安装时速度比较慢，所以使用国内源，可以加速下载模块的速度</span><br><span class="line">2、常用pip源：</span><br><span class="line">-- 豆瓣：https://pypi.douban.com/simple</span><br><span class="line">-- 阿里：https://mirrors.aliyun.com/pypi/simple</span><br><span class="line">-- 清华：https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line">-- 中国科技大学：https://pypi.mirrors.ustc.edu.cn/simple</span><br><span class="line">3、临时使用以下命令加速安装：</span><br><span class="line">-- pip install -i https://pypi.douban.com/simple 模块名</span><br></pre></td></tr></table></figure><h2 id="永久配置安装源"><a href="#永久配置安装源" class="headerlink" title="永久配置安装源"></a>永久配置安装源</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、资源管理器地址栏输入 %APPDATA% 然后回车，可以直接进入 C:\Users\用户名\AppData\Roaming 目录</span><br><span class="line">2、在此目录下新建 pip 文件夹，并在文件夹中新建 pip.ini 配置文件</span><br><span class="line">3、在 pip.ini 进行配置</span><br></pre></td></tr></table></figure><h3 id="MacOS、Linux"><a href="#MacOS、Linux" class="headerlink" title="MacOS、Linux"></a>MacOS、Linux</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、在用户家目录下创建 .pip 隐藏文件夹，如果已经有了可以跳过</span><br><span class="line">-- mkdir ~/.pip</span><br><span class="line">2、进入 .pip 隐藏文件夹并创建 pip.conf 配置文件</span><br><span class="line">-- cd ~/.pip &amp;&amp; touch pip.conf</span><br><span class="line">3、在 pip.conf 进行配置</span><br></pre></td></tr></table></figure><h3 id="配置文件内容"><a href="#配置文件内容" class="headerlink" title="配置文件内容"></a>配置文件内容</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[global]</span></span><br><span class="line"><span class="attr">index-url</span> = https://pypi.douban.com/simple</span><br><span class="line"><span class="section">[install]</span></span><br><span class="line"><span class="attr">use-mirrors</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">mirrors</span> = https://pypi.douban.com/simple</span><br><span class="line"><span class="attr">trusted-host</span> = pypi.douban.com</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、pip直接安装时速度比较慢，所以使用国内源，可以加速下载模块的速度</span><br><span class="line">2、常用pip源：</span><br><span class="line">-- 豆瓣：https://pypi.douban.com/simple</span><br><span class="line">-- 阿里：https://mirrors.aliyun.com/pypi/simple</span><br><span class="line">-- 清华：https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line">-- 中国科技大学：https://pypi.mirrors.ustc.edu.cn/simple</span><br><span class="line">3、临时使用以下命令加速安装：</span><br><span class="line">-- pip install -i https://pypi.douban.com/simple 模块名</span><br></pre></td></tr></table></figure><h2 id="永久配置安装源"><a href="#永久配置安装源" class="headerlink" title="永久配置安装源"></a>永久配置安装源</h2><h3 id="命令行一键设置"><a href="#命令行一键设置" class="headerlink" title="命令行一键设置"></a>命令行一键设置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip config <span class="built_in">set</span> global.index-url https://pypi.douban.com/simple</span><br></pre></td></tr></table></figure><h3 id="手动设置"><a href="#手动设置" class="headerlink" title="手动设置"></a>手动设置</h3><div class="tabs" id="operatingsystem"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#operatingsystem-1">Windows</button></li><li class="tab"><button type="button" data-href="#operatingsystem-2">Linux</button></li><li class="tab"><button type="button" data-href="#operatingsystem-3">MacOS</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="operatingsystem-1"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">资源管理器地址栏输入 %APPDATA% 然后回车；</span><br><span class="line">可以直接进入 C:\Users\用户名\AppData\Roaming 目录；</span><br><span class="line">在此目录下新建 pip 文件夹；</span><br><span class="line">在pip文件夹中新建 pip.ini 配置文件；</span><br><span class="line">在 pip.ini 进行配置</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="operatingsystem-2"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在用户家目录下创建 .pip 隐藏文件夹，如果已经有了可以跳过</span><br><span class="line">    -- mkdir ~/.pip</span><br><span class="line">进入 .pip 隐藏文件夹并创建 pip.conf 配置文件</span><br><span class="line">    -- cd ~/.pip &amp;&amp; touch pip.conf</span><br><span class="line">在 pip.conf 进行配置</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="operatingsystem-3"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在用户家目录下创建 .pip 隐藏文件夹，如果已经有了可以跳过</span><br><span class="line">    -- mkdir ~/.config/pip</span><br><span class="line">进入 .pip 隐藏文件夹并创建 pip.conf 配置文件</span><br><span class="line">    -- cd ~/.config/pip &amp;&amp; touch pip.conf</span><br><span class="line">在 pip.conf 进行配置</span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div><p><strong>配置文件内容</strong></p><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[global]</span></span><br><span class="line"><span class="attr">index-url</span> = https://pypi.douban.com/simple</span><br><span class="line"><span class="section">[install]</span></span><br><span class="line"><span class="attr">use-mirrors</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">mirrors</span> = https://pypi.douban.com/simple</span><br><span class="line"><span class="attr">trusted-host</span> = pypi.douban.com</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -108,6 +191,8 @@
       
       
         <tags>
+            
+            <tag> Python </tag>
             
             <tag> pip </tag>
             
@@ -143,162 +228,6 @@
     
     
     <entry>
-      <title>matplotlib设置中文显示</title>
-      <link href="/posts/695ebb9c/"/>
-      <url>/posts/695ebb9c/</url>
-      
-        <content type="html"><![CDATA[<p>​matplotlib默认不支持中文字符，因为默认的英文字体无法显示汉字。</p><ul><li><p>查看Linux&#x2F;Mac下面支持的字体</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fc-list 查看支持的字体</span><br><span class="line">fc-list :lang=zh 查看支持的中文（冒号前面有空格）</span><br></pre></td></tr></table></figure></li><li><p>修改matplotlib字体</p><blockquote><ol><li>通过matplotlib.rc修改（Windows&#x2F;Linux），不过测试并没有成功</li></ol></blockquote>   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line">font = &#123;<span class="string">&quot;family&quot;</span>: <span class="string">&quot;Microsoft Yahei&quot;</span>&#125;</span><br><span class="line">matplotlib.rc(<span class="string">&quot;font&quot;</span>, **font)</span><br></pre></td></tr></table></figure><blockquote><ol start="2"><li>通过matplotlib下的font_manager修改（Windows&#x2F;Linux&#x2F;Mac），测试成功</li></ol></blockquote>   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> font_manager, pyplot</span><br><span class="line"><span class="comment"># fname里面的内容是通过fc-list :lang=zh命令查询到的系统支持的中文字体</span></span><br><span class="line">my_font = font_manager.FontProperties(fname=”/usr/share/fonts/truetype/arphic/uming.ttc”)</span><br><span class="line">a = [random.randint(<span class="number">20</span>,<span class="number">35</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">60</span>)]</span><br><span class="line">_b = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">60</span>))</span><br><span class="line">_bticks_labels = [“<span class="number">10</span>点%02d分” % i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">60</span>)]</span><br><span class="line">pyplot.figure(figsize=(<span class="number">30</span>,<span class="number">15</span>))</span><br><span class="line"><span class="comment"># rotation旋转的度数，fontproperties设置字体</span></span><br><span class="line">pyplot.xticks(_b[::<span class="number">10</span>], _bticks_labels[::<span class="number">10</span>], rotation=<span class="number">45</span>, fontproperties=my_font)</span><br><span class="line">pyplot.plot(_b,a)</span><br></pre></td></tr></table></figure></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> matplotlib </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Requests小技巧和scrapy说明</title>
-      <link href="/posts/fd59dc2b/"/>
-      <url>/posts/fd59dc2b/</url>
-      
-        <content type="html"><![CDATA[<h2 id="Requests小技巧"><a href="#Requests小技巧" class="headerlink" title="Requests小技巧"></a>Requests小技巧</h2><ul><li><code>requests.utils.dict_from_cookiejar</code> 把cookie对象转化为字典</li><li>请求SSL证书验证  <code>requests.get(&quot;&lt;https://www.12306.cn/mormhweb/&gt;&quot;, verify=False)</code></li><li>配合状态码判断是否请求成功 <code>assert response.status_code ==200</code></li></ul><h2 id="Scrapy"><a href="#Scrapy" class="headerlink" title="Scrapy"></a>Scrapy</h2><blockquote><p>爬虫库 python3.6以上</p></blockquote>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">asn1crypto==<span class="number">0.24</span><span class="number">.0</span></span><br><span class="line">attrs==<span class="number">19.1</span><span class="number">.0</span></span><br><span class="line">Automat==<span class="number">0.7</span><span class="number">.0</span></span><br><span class="line">certifi==<span class="number">2019.3</span><span class="number">.9</span></span><br><span class="line">cffi==<span class="number">1.12</span><span class="number">.3</span></span><br><span class="line">constantly==<span class="number">15.1</span><span class="number">.0</span></span><br><span class="line">cryptography==<span class="number">2.6</span><span class="number">.1</span></span><br><span class="line">cssselect==<span class="number">1.0</span><span class="number">.3</span></span><br><span class="line">hyperlink==<span class="number">19.0</span><span class="number">.0</span></span><br><span class="line">idna==<span class="number">2.8</span></span><br><span class="line">incremental==<span class="number">17.5</span><span class="number">.0</span></span><br><span class="line">lxml==<span class="number">4.3</span><span class="number">.3</span></span><br><span class="line">parsel==<span class="number">1.5</span><span class="number">.1</span></span><br><span class="line">pyasn1==<span class="number">0.4</span><span class="number">.5</span></span><br><span class="line">pyasn1-modules==<span class="number">0.2</span><span class="number">.5</span></span><br><span class="line">pycparser==<span class="number">2.19</span></span><br><span class="line">PyDispatcher==<span class="number">2.0</span><span class="number">.5</span></span><br><span class="line">PyHamcrest==<span class="number">1.9</span><span class="number">.0</span></span><br><span class="line">PyMySQL==<span class="number">0.9</span><span class="number">.3</span></span><br><span class="line">pyOpenSSL==<span class="number">19.0</span><span class="number">.0</span></span><br><span class="line">pywin32==<span class="number">224</span></span><br><span class="line">queuelib==<span class="number">1.5</span><span class="number">.0</span></span><br><span class="line">Scrapy==<span class="number">1.6</span><span class="number">.0</span></span><br><span class="line">service-identity==<span class="number">18.1</span><span class="number">.0</span></span><br><span class="line">six==<span class="number">1.12</span><span class="number">.0</span></span><br><span class="line">Twisted==<span class="number">19.2</span><span class="number">.0</span></span><br><span class="line">w3lib==<span class="number">1.20</span><span class="number">.0</span></span><br><span class="line">wincertstore==<span class="number">0.2</span></span><br><span class="line">zope.interface==<span class="number">4.6</span><span class="number">.0</span></span><br></pre></td></tr></table></figure><blockquote><p>常用命令</p></blockquote><ul><li>全局命令<a href="%E4%B8%8D%E8%BF%9B%E5%85%A5%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E5%8D%B3%E5%8F%AF%E8%BF%90%E8%A1%8C">^1</a><ul><li>fetch: 用来显示爬虫爬取过程</li><li>runspider: 可以实现不依托scrapy的爬虫项目，直接运行一个爬虫文件。</li><li>settings:</li><li>shell:</li><li>startproject:</li><li>version:</li><li>view:可以下载某个网页并用浏览器查看。</li></ul></li><li>项目命令<ul><li>bench: 可以测试本地硬件的性能； 运行scrapy bench 时，会创建一个本地服务器并以最大速度爬行</li><li>check: 爬虫测试比较麻烦，所以在scrapy中使用合同（contract）的方式对爬虫进行测试。<br><code>scrapy check [爬虫名]</code></li><li>crawl</li><li>edit: Linux中可以直接打开编辑器编辑爬虫文件</li><li>genspider: 有多个模板可供选择 参数 -t crawl</li><li>list: 列出当前可以使用的爬虫文件</li><li>parse: 获取指定的网址，使用对应的爬虫文件处理和分析</li></ul></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> requests </tag>
-            
-            <tag> scrapy </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>urllib添加头信息的两种方法</title>
-      <link href="/posts/5254b9a/"/>
-      <url>/posts/5254b9a/</url>
-      
-        <content type="html"><![CDATA[<h2 id="使用-build-opener"><a href="#使用-build-opener" class="headerlink" title="使用 build_opener"></a>使用 build_opener</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;https://www.baidu.com&quot;</span></span><br><span class="line"><span class="comment"># req = urllib.request.urlopen(url)</span></span><br><span class="line">headers = (<span class="string">&quot;User-Agent&quot;</span>, <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&quot;</span>)</span><br><span class="line"><span class="comment"># 使用 build_opener</span></span><br><span class="line">opener = urllib.request.build_opener()</span><br><span class="line">opener.addheaders = [headers]</span><br><span class="line"><span class="comment"># req = opener.open(url)</span></span><br><span class="line"></span><br><span class="line">urllib.request.install_opener(opener)</span><br><span class="line">req = urllib.request.urlopen(url)</span><br></pre></td></tr></table></figure><h2 id="使用-add-header"><a href="#使用-add-header" class="headerlink" title="使用 add_header"></a>使用 add_header</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 add_header</span></span><br><span class="line">req = urllib.request.Request(url)</span><br><span class="line">req.add_header(<span class="string">&quot;User-Agent&quot;</span>, <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&quot;</span>)</span><br><span class="line">res = urllib.request.urlopen(req)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(res.read())</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> urllib </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>安装pyqt时报错</title>
-      <link href="/posts/7583b932/"/>
-      <url>/posts/7583b932/</url>
-      
-        <content type="html"><![CDATA[<p>安装pyqt5 时出现错误， 提示 <code>could not fetch URL</code>，最后检查发现原来是开了fiddler，关闭fiddler即可</p><pre><code>![](https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/228d472d3db177a3c03a2f058fdc7505.png)</code></pre><p>解决方法链接：<a href="https://blog.csdn.net/jiang_xiaoo24/article/details/87689369">https://blog.csdn.net/jiang_xiaoo24/article/details/87689369</a></p><p>  ​</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> pyqt </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>批处理文件运行python程序</title>
-      <link href="/posts/2e9e806c/"/>
-      <url>/posts/2e9e806c/</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/ad18833c934078075fffe616570a4841.png"></p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/80ab4633e92e0290197446da111dec4f.png"></p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/fdace5bfcad75ffe0b243156ff54f496.png"></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 批处理 </tag>
-            
-            <tag> windows </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>ubuntu 16.04虚拟机使用jupyter notebook报错</title>
-      <link href="/posts/2157fcb1/"/>
-      <url>/posts/2157fcb1/</url>
-      
-        <content type="html"><![CDATA[<p>本来打算使用下jupyter notebook，结果运行时报错了</p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/e0e1a1a313b4fdd21b92fbbe206b1bdf.png"></p><blockquote><p>然后，根据搜索引擎结果尝试卸载重装</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -H pip uninstall jupyter notebook</span><br><span class="line">sudo -H pip install jupyter notebook</span><br></pre></td></tr></table></figure><blockquote><p>安装时又提示错误    <code>Cannot uninstall &#39;ipython&#39;</code>  </p></blockquote><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/11df463c51409c3e8436a11973c7771b.png"></p><p>根据上面的提示又直接使用命令安装ipython <code>pip install ipython</code>，发现并没有解决问题</p><p>最终搜索到解决方法，运行下面的命令强制更新，更新完成后，重新打开jupyter notebook成功。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 install --ignore-installed ipython --upgrade</span><br></pre></td></tr></table></figure><br><p>参考链接： <a href="https://www.jianshu.com/p/94caf01dd9a6">https://www.jianshu.com/p/94caf01dd9a6</a></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Python </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> jupyter notebook </tag>
-            
-            <tag> ubuntu </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Linux常用命令</title>
       <link href="/posts/d0edc1ed/"/>
       <url>/posts/d0edc1ed/</url>
@@ -316,6 +245,35 @@
         <tags>
             
             <tag> ubuntu </tag>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>matplotlib设置中文显示</title>
+      <link href="/posts/695ebb9c/"/>
+      <url>/posts/695ebb9c/</url>
+      
+        <content type="html"><![CDATA[<p>​matplotlib默认不支持中文字符，因为默认的英文字体无法显示汉字。</p><ul><li><p>查看Linux&#x2F;Mac下面支持的字体</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fc-list 查看支持的字体</span><br><span class="line">fc-list :lang=zh 查看支持的中文（冒号前面有空格）</span><br></pre></td></tr></table></figure></li><li><p>修改matplotlib字体</p><blockquote><ol><li>通过matplotlib.rc修改（Windows&#x2F;Linux），不过测试并没有成功</li></ol></blockquote>   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line">font = &#123;<span class="string">&quot;family&quot;</span>: <span class="string">&quot;Microsoft Yahei&quot;</span>&#125;</span><br><span class="line">matplotlib.rc(<span class="string">&quot;font&quot;</span>, **font)</span><br></pre></td></tr></table></figure><blockquote><ol start="2"><li>通过matplotlib下的font_manager修改（Windows&#x2F;Linux&#x2F;Mac），测试成功</li></ol></blockquote>   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> font_manager, pyplot</span><br><span class="line"><span class="comment"># fname里面的内容是通过fc-list :lang=zh命令查询到的系统支持的中文字体</span></span><br><span class="line">my_font = font_manager.FontProperties(fname=”/usr/share/fonts/truetype/arphic/uming.ttc”)</span><br><span class="line">a = [random.randint(<span class="number">20</span>,<span class="number">35</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">60</span>)]</span><br><span class="line">_b = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">60</span>))</span><br><span class="line">_bticks_labels = [“<span class="number">10</span>点%02d分” % i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">60</span>)]</span><br><span class="line">pyplot.figure(figsize=(<span class="number">30</span>,<span class="number">15</span>))</span><br><span class="line"><span class="comment"># rotation旋转的度数，fontproperties设置字体</span></span><br><span class="line">pyplot.xticks(_b[::<span class="number">10</span>], _bticks_labels[::<span class="number">10</span>], rotation=<span class="number">45</span>, fontproperties=my_font)</span><br><span class="line">pyplot.plot(_b,a)</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> matplotlib </tag>
             
         </tags>
       
@@ -349,6 +307,145 @@
     
     
     <entry>
+      <title>Requests小技巧和scrapy说明</title>
+      <link href="/posts/fd59dc2b/"/>
+      <url>/posts/fd59dc2b/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Requests小技巧"><a href="#Requests小技巧" class="headerlink" title="Requests小技巧"></a>Requests小技巧</h2><ul><li><code>requests.utils.dict_from_cookiejar</code> 把cookie对象转化为字典</li><li>请求SSL证书验证  <code>requests.get(&quot;&lt;https://www.12306.cn/mormhweb/&gt;&quot;, verify=False)</code></li><li>配合状态码判断是否请求成功 <code>assert response.status_code ==200</code></li></ul><h2 id="Scrapy"><a href="#Scrapy" class="headerlink" title="Scrapy"></a>Scrapy</h2><blockquote><p>爬虫库 python3.6以上</p></blockquote>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">asn1crypto==<span class="number">0.24</span><span class="number">.0</span></span><br><span class="line">attrs==<span class="number">19.1</span><span class="number">.0</span></span><br><span class="line">Automat==<span class="number">0.7</span><span class="number">.0</span></span><br><span class="line">certifi==<span class="number">2019.3</span><span class="number">.9</span></span><br><span class="line">cffi==<span class="number">1.12</span><span class="number">.3</span></span><br><span class="line">constantly==<span class="number">15.1</span><span class="number">.0</span></span><br><span class="line">cryptography==<span class="number">2.6</span><span class="number">.1</span></span><br><span class="line">cssselect==<span class="number">1.0</span><span class="number">.3</span></span><br><span class="line">hyperlink==<span class="number">19.0</span><span class="number">.0</span></span><br><span class="line">idna==<span class="number">2.8</span></span><br><span class="line">incremental==<span class="number">17.5</span><span class="number">.0</span></span><br><span class="line">lxml==<span class="number">4.3</span><span class="number">.3</span></span><br><span class="line">parsel==<span class="number">1.5</span><span class="number">.1</span></span><br><span class="line">pyasn1==<span class="number">0.4</span><span class="number">.5</span></span><br><span class="line">pyasn1-modules==<span class="number">0.2</span><span class="number">.5</span></span><br><span class="line">pycparser==<span class="number">2.19</span></span><br><span class="line">PyDispatcher==<span class="number">2.0</span><span class="number">.5</span></span><br><span class="line">PyHamcrest==<span class="number">1.9</span><span class="number">.0</span></span><br><span class="line">PyMySQL==<span class="number">0.9</span><span class="number">.3</span></span><br><span class="line">pyOpenSSL==<span class="number">19.0</span><span class="number">.0</span></span><br><span class="line">pywin32==<span class="number">224</span></span><br><span class="line">queuelib==<span class="number">1.5</span><span class="number">.0</span></span><br><span class="line">Scrapy==<span class="number">1.6</span><span class="number">.0</span></span><br><span class="line">service-identity==<span class="number">18.1</span><span class="number">.0</span></span><br><span class="line">six==<span class="number">1.12</span><span class="number">.0</span></span><br><span class="line">Twisted==<span class="number">19.2</span><span class="number">.0</span></span><br><span class="line">w3lib==<span class="number">1.20</span><span class="number">.0</span></span><br><span class="line">wincertstore==<span class="number">0.2</span></span><br><span class="line">zope.interface==<span class="number">4.6</span><span class="number">.0</span></span><br></pre></td></tr></table></figure><blockquote><p>常用命令</p></blockquote><ul><li>全局命令<a href="%E4%B8%8D%E8%BF%9B%E5%85%A5%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E5%8D%B3%E5%8F%AF%E8%BF%90%E8%A1%8C">^1</a><ul><li>fetch: 用来显示爬虫爬取过程</li><li>runspider: 可以实现不依托scrapy的爬虫项目，直接运行一个爬虫文件。</li><li>settings:</li><li>shell:</li><li>startproject:</li><li>version:</li><li>view:可以下载某个网页并用浏览器查看。</li></ul></li><li>项目命令<ul><li>bench: 可以测试本地硬件的性能； 运行scrapy bench 时，会创建一个本地服务器并以最大速度爬行</li><li>check: 爬虫测试比较麻烦，所以在scrapy中使用合同（contract）的方式对爬虫进行测试。<br><code>scrapy check [爬虫名]</code></li><li>crawl</li><li>edit: Linux中可以直接打开编辑器编辑爬虫文件</li><li>genspider: 有多个模板可供选择 参数 -t crawl</li><li>list: 列出当前可以使用的爬虫文件</li><li>parse: 获取指定的网址，使用对应的爬虫文件处理和分析</li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 爬虫 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> requests </tag>
+            
+            <tag> scrapy </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>urllib添加头信息的两种方法</title>
+      <link href="/posts/5254b9a/"/>
+      <url>/posts/5254b9a/</url>
+      
+        <content type="html"><![CDATA[<h2 id="使用-build-opener"><a href="#使用-build-opener" class="headerlink" title="使用 build_opener"></a>使用 build_opener</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;https://www.baidu.com&quot;</span></span><br><span class="line"><span class="comment"># req = urllib.request.urlopen(url)</span></span><br><span class="line">headers = (<span class="string">&quot;User-Agent&quot;</span>, <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&quot;</span>)</span><br><span class="line"><span class="comment"># 使用 build_opener</span></span><br><span class="line">opener = urllib.request.build_opener()</span><br><span class="line">opener.addheaders = [headers]</span><br><span class="line"><span class="comment"># req = opener.open(url)</span></span><br><span class="line"></span><br><span class="line">urllib.request.install_opener(opener)</span><br><span class="line">req = urllib.request.urlopen(url)</span><br></pre></td></tr></table></figure><h2 id="使用-add-header"><a href="#使用-add-header" class="headerlink" title="使用 add_header"></a>使用 add_header</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 add_header</span></span><br><span class="line">req = urllib.request.Request(url)</span><br><span class="line">req.add_header(<span class="string">&quot;User-Agent&quot;</span>, <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&quot;</span>)</span><br><span class="line">res = urllib.request.urlopen(req)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(res.read())</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 爬虫 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> urllib </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>安装pyqt时报错</title>
+      <link href="/posts/7583b932/"/>
+      <url>/posts/7583b932/</url>
+      
+        <content type="html"><![CDATA[<p>安装pyqt5 时出现错误， 提示 <code>could not fetch URL</code>，最后检查发现原来是开了fiddler，关闭fiddler即可</p><pre><code>![](https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/228d472d3db177a3c03a2f058fdc7505.png)</code></pre><p>解决方法链接：<a href="https://blog.csdn.net/jiang_xiaoo24/article/details/87689369">https://blog.csdn.net/jiang_xiaoo24/article/details/87689369</a></p><p>  ​</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> pyqt </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>批处理文件运行python程序</title>
+      <link href="/posts/2e9e806c/"/>
+      <url>/posts/2e9e806c/</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/ad18833c934078075fffe616570a4841.png"></p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/80ab4633e92e0290197446da111dec4f.png"></p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/fdace5bfcad75ffe0b243156ff54f496.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Windows </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 批处理 </tag>
+            
+            <tag> windows </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ubuntu 16.04虚拟机使用jupyter notebook报错</title>
+      <link href="/posts/2157fcb1/"/>
+      <url>/posts/2157fcb1/</url>
+      
+        <content type="html"><![CDATA[<p>本来打算使用下jupyter notebook，结果运行时报错了</p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/e0e1a1a313b4fdd21b92fbbe206b1bdf.png"></p><blockquote><p>然后，根据搜索引擎结果尝试卸载重装</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -H pip uninstall jupyter notebook</span><br><span class="line">sudo -H pip install jupyter notebook</span><br></pre></td></tr></table></figure><blockquote><p>安装时又提示错误    <code>Cannot uninstall &#39;ipython&#39;</code>  </p></blockquote><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/11df463c51409c3e8436a11973c7771b.png"></p><p>根据上面的提示又直接使用命令安装ipython <code>pip install ipython</code>，发现并没有解决问题</p><p>最终搜索到解决方法，运行下面的命令强制更新，更新完成后，重新打开jupyter notebook成功。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 install --ignore-installed ipython --upgrade</span><br></pre></td></tr></table></figure><br><p>参考链接： <a href="https://www.jianshu.com/p/94caf01dd9a6">https://www.jianshu.com/p/94caf01dd9a6</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> ubuntu </tag>
+            
+            <tag> jupyter notebook </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>部署awesome时报错</title>
       <link href="/posts/cb42f876/"/>
       <url>/posts/cb42f876/</url>
@@ -358,7 +455,7 @@
       
       <categories>
           
-          <category> Linux </category>
+          <category> Web </category>
           
       </categories>
       

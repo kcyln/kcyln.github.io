@@ -1,0 +1,522 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Redis入门 | 天涯海阁</title><meta name="keywords" content="redis"><meta name="author" content="kcyln"><meta name="copyright" content="kcyln"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="入门  redis 官网 https:&#x2F;&#x2F;redis.io&#x2F;download 中文网站 redis.cn  www.redis.com.cn Redis 命令文档 http:&#x2F;&#x2F;doc.redisfans.com&#x2F; github https:&#x2F;&#x2F;github.com&#x2F;redis&#x2F;redis 在线测试 https:&#x2F;&#x2F;try.redis.io  ‍ Redis（Remote Dictionary S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis入门">
+<meta property="og:url" content="https://www.kcyln.xyz/posts/6a343b7f/index.html">
+<meta property="og:site_name" content="天涯海阁">
+<meta property="og:description" content="入门  redis 官网 https:&#x2F;&#x2F;redis.io&#x2F;download 中文网站 redis.cn  www.redis.com.cn Redis 命令文档 http:&#x2F;&#x2F;doc.redisfans.com&#x2F; github https:&#x2F;&#x2F;github.com&#x2F;redis&#x2F;redis 在线测试 https:&#x2F;&#x2F;try.redis.io  ‍ Redis（Remote Dictionary S">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/15/5bc39d18f36f73d973f8641b47fc1169.jpeg">
+<meta property="article:published_time" content="2023-03-21T08:00:32.000Z">
+<meta property="article:modified_time" content="2023-03-23T14:31:01.000Z">
+<meta property="article:author" content="kcyln">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/15/5bc39d18f36f73d973f8641b47fc1169.jpeg"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/12/07/9a938caffcb1a6968eab7f8e0cd6857b.png"><link rel="canonical" href="https://www.kcyln.xyz/posts/6a343b7f/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu_site_verification" content="http://data.zz.baidu.com/urls?site=https://kcyln.gitee.io&amp;token=OxN6ShKmGLRo1lRY"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: 'ca-pub-4985175266208920',
+  enable_page_level_ads: 'true'
+});</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?584bfa4db6126a105facde0677e4ef55";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-CYJNKFDP03"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-CYJNKFDP03');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Redis入门',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2023-03-23 22:31:01'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><style type="text/css">#toggle-sidebar {bottom: 80px}</style><meta name="generator" content="Hexo 6.1.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/12/07/8b2bf57d105d56f23dc7d3fa1b08cd9a.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/posts/f4956656/"><i class="fa-fw fas fa-cog"></i><span> 常用安装</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/musics/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/novels/"><i class="fa-fw fas fa-book"></i><span> 小说</span></a></li><li><a class="site-page child" href="/comics/"><i class="fa-fw fas fa-list-alt"></i><span> 动漫</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/contact/"><i class="fa-fw fas fa-envelope"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://tool.kcyln.xyz/"><i class="fa-fw fas fa-location-arrow"></i><span> 导航</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/15/5bc39d18f36f73d973f8641b47fc1169.jpeg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">天涯海阁</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/posts/f4956656/"><i class="fa-fw fas fa-cog"></i><span> 常用安装</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/musics/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/novels/"><i class="fa-fw fas fa-book"></i><span> 小说</span></a></li><li><a class="site-page child" href="/comics/"><i class="fa-fw fas fa-list-alt"></i><span> 动漫</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/contact/"><i class="fa-fw fas fa-envelope"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://tool.kcyln.xyz/"><i class="fa-fw fas fa-location-arrow"></i><span> 导航</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Redis入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-21T08:00:32.000Z" title="发表于 2023-03-21 16:00:32">2023-03-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-23T14:31:01.000Z" title="更新于 2023-03-23 22:31:01">2023-03-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Redis/">Redis</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Redis入门"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h1><hr>
+<blockquote>
+<p>redis 官网 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://redis.io/download">https://redis.io/download</a></p>
+<p>中文网站 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.redis.cn/">redis.cn</a>  <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.redis.com.cn/">www.redis.com.cn</a></p>
+<p>Redis 命令文档 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://doc.redisfans.com/">http://doc.redisfans.com/</a></p>
+<p>github <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/redis/redis">https://github.com/redis/redis</a></p>
+<p>在线测试 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://try.redis.io/">https://try.redis.io</a></p>
+</blockquote>
+<p>‍</p>
+<p>Redis（Remote Dictionary Server）：基于内存的 KV 键值对数据库</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2023/03/28/8a2a9dbc87cc0349e4d0c161b8d2627b.png"></p>
+<p><strong>优势、注意事项、应用</strong></p>
+<ul>
+<li>性能极高，读写速度可达 110000 次&#x2F;秒，81000 次&#x2F;秒</li>
+<li>数据类型丰富，支持 list，set，zset，hash 等数据结构的存储</li>
+<li>内存存储和持久化（RDB 和 AOF），可将内存中的数据异步写到硬盘，同时不影响继续服务；支持主从模式的数据备份。</li>
+<li>分布式缓存，为 MySQL 数据库缓解压力</li>
+<li>高可用架构搭配：单机、主从、哨兵、集群</li>
+<li>缓存穿透、击穿、雪崩</li>
+<li>分布式锁</li>
+<li>队列</li>
+<li>排行榜 + 点赞</li>
+</ul>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><ul>
+<li>string</li>
+<li>list</li>
+<li>hash</li>
+<li>set</li>
+<li>zset</li>
+</ul>
+<p>‍</p>
+<ul>
+<li>bitmap</li>
+<li>bitfield</li>
+<li>geospatial</li>
+<li>HyperLogLog</li>
+<li>stream</li>
+</ul>
+<p>bitfield 位域  位域修改，溢出控制； 了解即可</p>
+<p>stream 流  类似于消息队列，似乎使用不多，还是用 kafka 这类吧</p>
+<p>‍</p>
+<blockquote>
+<p><strong>相关命令</strong></p>
+</blockquote>
+<h2 id="字符串（String）"><a href="#字符串（String）" class="headerlink" title="字符串（String）"></a>字符串（String）</h2><ol>
+<li><p>既可以保存普通文字，也可以保存序列化的二进制数据</p>
+</li>
+<li><p>最大可以存储 512M 数据</p>
+</li>
+<li><p>字符串指令</p>
+<ul>
+<li>SET key value</li>
+<li>GET key</li>
+<li>DEL key</li>
+<li>GETRANGE key 起始位置 结束位置 获得截取字符串内容（结束位置写-1 表示最后一位）</li>
+<li>STRLEN key 获取字符串长度</li>
+<li>SETEX key seconds value 设置带有过期时间（秒）的 key-value</li>
+<li>PSETEX key milliseconds value 设置带有过期时间（毫秒）的 key-value</li>
+<li>MSET key1 value1 key2 value2 设置多个 key-value</li>
+<li>MGET key1 key2 获得多个 value</li>
+<li>APPEND key value 用于在字符串结尾追加内容</li>
+<li>INCR key 数字自增加 1</li>
+<li>INCRBY key int 数字加上指定的整数值</li>
+<li>INCRBYFLOAT key float 数字加上指定的浮点数（没有减去指定浮点数的命令，可以用此命令加负数实现）</li>
+<li>DECR key 数字自增减 1</li>
+<li>DECRBY key int 数字减去指定的整数值</li>
+</ul>
+</li>
+</ol>
+<h2 id="哈希（Hash）"><a href="#哈希（Hash）" class="headerlink" title="哈希（Hash）"></a>哈希（Hash）</h2><ol>
+<li><p>格式类似于 Python 的字典</p>
+</li>
+<li><p>哈希指令</p>
+<ul>
+<li>HSET key key1 value1 设置哈希表字段</li>
+<li>HMSET key key1 value1 key2 value2 设置哈希表多个字段</li>
+<li>HGET key key1 获取哈希表字段值</li>
+<li>HMGET key key1 key2 获取哈希表多个字段值</li>
+<li>HGETALL key 获取哈希表所有字段值（key value 都会获取到）</li>
+<li>HKEYS key 获得哈希表所有字段名</li>
+<li>HLEN key 获得哈希表中的字段数量</li>
+<li>HEXISTS key key1 判断哈希表是否存在某个字段，存在返回 1，不存在返回 0</li>
+<li>HVALS key 获得哈希表所有字段值（只获取 value）</li>
+<li>HDEL key key1 key2 删除哈希表的字段</li>
+<li>HINCRBY key key1 int 让哈希表某个字段值加上指定的整数值（哈希表没有减法指令）</li>
+<li>HINCRBYFLOAT key key1 float 让哈希表某个字段值加上指定的浮点数</li>
+</ul>
+</li>
+</ol>
+<h2 id="列表（List）"><a href="#列表（List）" class="headerlink" title="列表（List）"></a>列表（List）</h2><ol>
+<li><p>格式类似于 Python 的列表</p>
+</li>
+<li><p>列表指令</p>
+<ul>
+<li>RPUSH key value1 value2 创建列表，向列表右侧插入内容</li>
+<li>LPUSH key value1 value2 向列表左侧插入内容</li>
+<li>LSET key index value 修改列表中的第几个值（index 索引，从 0 开始）</li>
+<li>LRANGE key 起始位置 结束位置 获取列表起始位置与结束位置之间的内容（包含起始位置与结束位置）</li>
+<li>LLEN key 获得列表长度</li>
+<li>LINDEX key index 获得列表某个元素</li>
+<li>LINSERT key [BEFORE|AFTER] value value1 在某个元素前面或后面插入新的元素</li>
+<li>LPOP key 删除列表最左边的元素</li>
+<li>RPOP key 删除列表最右边的元素</li>
+<li>LREM key count value 删除列表某个元素，列表中可能有重复元素，count 表示删除几个，从左往右删除</li>
+</ul>
+</li>
+</ol>
+<h2 id="集合（Set）"><a href="#集合（Set）" class="headerlink" title="集合（Set）"></a>集合（Set）</h2><ol>
+<li><p>集合中的元素不能重复，Redis 通过比较两个元素的哈希值来判断是否重复，为了加快比较速度，还会对哈希值进行排序，这样新插入的元素在判断哈希值时只要比较某个区间内的哈希值即可，也因此集合是无序的（或者说集合的顺序其实是按照哈希值排序的）</p>
+</li>
+<li><p>集合指令</p>
+<ul>
+<li>SADD key value1 value2 向集合中插入元素</li>
+<li>SMEMBERS key 获得所有元素</li>
+<li>SCARD key 获得集合长度</li>
+<li>SISMEMBER key value 判断是否含有某个元素</li>
+<li>SREM key value1 value2 删除元素</li>
+<li>SPOP key 随机删除某个元素并返回删除的这个元素</li>
+<li>SRANDMEMBER key count 随机返回集合中的元素 count 表示返回的元素的数量</li>
+</ul>
+</li>
+</ol>
+<h2 id="有序集合（Zset）"><a href="#有序集合（Zset）" class="headerlink" title="有序集合（Zset）"></a>有序集合（Zset）</h2><ol>
+<li><p>有序集合是带有排序功能的集合，Redis 会按照元素分数值排序（分数值相同的情况下，会根据元素值计算出来的哈希值进行排序）</p>
+<ul>
+<li><p>有序集合是按照大小对元素进行排序的一种数据结构，Redis 要求列表中每个元素除了元素值以外，还需要有一个分数值，有序列表就是对分数值排序实现的元素的排序</p>
+</li>
+<li><p>关于有序集合为什么叫 Zset，而不是 Sorted Set</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/22/ea13766dc5d6b3682c085b61f0b84691.jpg" alt="img">​</p>
+</li>
+</ul>
+</li>
+<li><p>有序集合指令</p>
+<ul>
+<li><p>ZADD key score value [score] [value] 创建一个有序集合，添加数据（value 需要用双引号括起来）</p>
+</li>
+<li><p>ZINCRBY key increment value 对元素的分数值进行加法运算 increment 是数字</p>
+</li>
+<li><p>ZREVRANGE key 起始位置 结束位置 获得有序集合的内容，降序</p>
+</li>
+<li><p>ZRANGE key 起始位置 结束位置 获得有序集合的内容，升序</p>
+</li>
+<li><p>ZCARD key 获得有序集合长度</p>
+</li>
+<li><p>ZCOUNT key score1 score2 查询某个分数值区间内的元素数量</p>
+</li>
+<li><p>ZSCORE key value 返回元素的分数值</p>
+</li>
+<li><p>ZRANGEBYSCORE key score1 score2 获得分数值区间内的集合内容，升序（小括号表示不包括 10， +inf 是正无穷，-inf 是负无穷）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ZRANGEBYSCORE keyword 5 10</span><br><span class="line">ZRANGEBYSCORE keyword 5 (10</span><br><span class="line">ZRANGEBYSCORE keyword 5 +inf</span><br></pre></td></tr></table></figure></li>
+<li><p>ZREVRANGEBYSCORE key score1 score2 获得分数值区间内的集合内容，降序（分数值要反着写）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZREVRANGEBYSCORE keyword 10 5</span><br></pre></td></tr></table></figure></li>
+<li><p>ZRANK key value 获得元素的升序排名（从 0 开始）</p>
+</li>
+<li><p>ZREVRANK key value 获得元素的降序排名（从 0 开始）</p>
+</li>
+<li><p>ZREM key value1 value2 删除有序集合中的元素</p>
+</li>
+<li><p>ZREMRANGEBYRANK key start stop 删除排名区间内的元素</p>
+</li>
+<li><p>ZREMRANGEBYSCORE key score1 score2 删除分数值区间内的元素</p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="Key命令"><a href="#Key命令" class="headerlink" title="Key命令"></a>Key命令</h1><ul>
+<li>DEL key 删除记录</li>
+<li>EXISTS key 判断是否存在某个key，存在返回1，否则返回0</li>
+<li>EXPIRE key seconds 设置过期时间（秒） PEXPIRE 是毫秒</li>
+<li>EXPIREAT key timestamp 设置记录的过期时间（UNIX时间戳）</li>
+<li>MOVE key 1 把记录迁移到其他逻辑库</li>
+<li>RENAME key key1 修改key名称</li>
+<li>PERSIST key 移除过期时间</li>
+<li>TYPE key 判断value的数据类型</li>
+</ul>
+<h1 id="其他指令"><a href="#其他指令" class="headerlink" title="其他指令"></a>其他指令</h1><ul>
+<li>FLUSHDB 清空当前数据库</li>
+<li>FLUSHALL 清理所有数据库中的数据</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">kcyln</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.kcyln.xyz/posts/6a343b7f/">https://www.kcyln.xyz/posts/6a343b7f/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.kcyln.xyz" target="_blank">天涯海阁</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/redis/">redis</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/15/5bc39d18f36f73d973f8641b47fc1169.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/d250866d/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/15/03a5f207170001ad4f9feea39373b75f.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">docker的安装与使用</div></div></a></div><div class="next-post pull-right"><a href="/posts/23ccefd3/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/15/1a4ff7c5f19198ddf9ef944367a60325.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">深拷贝与浅拷贝</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/f4956656/" title="常用安装"><img class="cover" src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/15/399cc7c1fb6cd8e8239f7969ed777664.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-08</div><div class="title">常用安装</div></div></a></div><div><a href="/posts/ec1f4cbd/" title="python3下读取redis返回bytes类型的问题"><img class="cover" src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/15/48cb5b14c465589595a422d914a1cd94.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-23</div><div class="title">python3下读取redis返回bytes类型的问题</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/12/07/8b2bf57d105d56f23dc7d3fa1b08cd9a.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">kcyln</div><div class="author-info__description">一分耕耘，一分收获。</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/kcyln"><i class="fab fa-github"></i><span>Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:2444572529@qq.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Welcome to my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%A5%E9%97%A8"><span class="toc-number">1.</span> <span class="toc-text">入门</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%88String%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">字符串（String）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%EF%BC%88Hash%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">哈希（Hash）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%97%E8%A1%A8%EF%BC%88List%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">列表（List）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E5%90%88%EF%BC%88Set%EF%BC%89"><span class="toc-number">2.4.</span> <span class="toc-text">集合（Set）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%EF%BC%88Zset%EF%BC%89"><span class="toc-number">2.5.</span> <span class="toc-text">有序集合（Zset）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Key%E5%91%BD%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text">Key命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%8C%87%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">其他指令</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/d250866d/" title="docker的安装与使用"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/15/03a5f207170001ad4f9feea39373b75f.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker的安装与使用"/></a><div class="content"><a class="title" href="/posts/d250866d/" title="docker的安装与使用">docker的安装与使用</a><time datetime="2023-03-26T07:45:56.000Z" title="发表于 2023-03-26 15:45:56">2023-03-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/6a343b7f/" title="Redis入门"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/15/5bc39d18f36f73d973f8641b47fc1169.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Redis入门"/></a><div class="content"><a class="title" href="/posts/6a343b7f/" title="Redis入门">Redis入门</a><time datetime="2023-03-21T08:00:32.000Z" title="发表于 2023-03-21 16:00:32">2023-03-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/23ccefd3/" title="深拷贝与浅拷贝"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/15/1a4ff7c5f19198ddf9ef944367a60325.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深拷贝与浅拷贝"/></a><div class="content"><a class="title" href="/posts/23ccefd3/" title="深拷贝与浅拷贝">深拷贝与浅拷贝</a><time datetime="2023-02-28T08:16:27.000Z" title="发表于 2023-02-28 16:16:27">2023-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/f4956656/" title="常用安装"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/15/399cc7c1fb6cd8e8239f7969ed777664.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常用安装"/></a><div class="content"><a class="title" href="/posts/f4956656/" title="常用安装">常用安装</a><time datetime="2020-12-08T03:57:34.000Z" title="发表于 2020-12-08 11:57:34">2020-12-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/ec1f4cbd/" title="python3下读取redis返回bytes类型的问题"><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/15/48cb5b14c465589595a422d914a1cd94.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="python3下读取redis返回bytes类型的问题"/></a><div class="content"><a class="title" href="/posts/ec1f4cbd/" title="python3下读取redis返回bytes类型的问题">python3下读取redis返回bytes类型的问题</a><time datetime="2020-09-22T16:00:00.000Z" title="发表于 2020-09-23 00:00:00">2020-09-23</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2022/04/15/5bc39d18f36f73d973f8641b47fc1169.jpeg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By kcyln</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到<a href="https://www.kcyln.xyz">天涯海阁</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadWaline () {
+  function initWaline () {
+    const waline = new Waline(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://comment.kcyln.xyz',
+      path: location.pathname,
+      visitor: false,
+      dark: 'html[data-theme="dark"]'
+    }, null))
+  }
+
+  if (typeof Waline === 'function') initWaline()
+  else getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js').then(initWaline)
+}
+
+if ('Waline' === 'Waline' || !true) {
+  if (true) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = () => {
+    const loadWaline = () => {
+      Waline.Widget.RecentComments({
+        serverURL: 'https://comment.kcyln.xyz',
+        count: 6
+      }).then(res => {
+        const walineArray = res.comments.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.objectId,
+            'date': e.insertedAt,
+          }
+        })
+        saveToLocal.set('waline-newest-comments', JSON.stringify(walineArray), 10/(60*24))
+        generateHtml(walineArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      }) 
+    }
+
+    if (typeof Waline === 'function') loadWaline() 
+    else getScript('https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js').then(loadWaline)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('waline-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><div class="aplayer no-destroy" data-id="472620452" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false"> </div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-CYJNKFDP03', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
