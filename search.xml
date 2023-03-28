@@ -336,33 +336,6 @@
     
     
     <entry>
-      <title>urllib添加头信息的两种方法</title>
-      <link href="/posts/5254b9a/"/>
-      <url>/posts/5254b9a/</url>
-      
-        <content type="html"><![CDATA[<h2 id="使用-build-opener"><a href="#使用-build-opener" class="headerlink" title="使用 build_opener"></a>使用 build_opener</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;https://www.baidu.com&quot;</span></span><br><span class="line"><span class="comment"># req = urllib.request.urlopen(url)</span></span><br><span class="line">headers = (<span class="string">&quot;User-Agent&quot;</span>, <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&quot;</span>)</span><br><span class="line"><span class="comment"># 使用 build_opener</span></span><br><span class="line">opener = urllib.request.build_opener()</span><br><span class="line">opener.addheaders = [headers]</span><br><span class="line"><span class="comment"># req = opener.open(url)</span></span><br><span class="line"></span><br><span class="line">urllib.request.install_opener(opener)</span><br><span class="line">req = urllib.request.urlopen(url)</span><br></pre></td></tr></table></figure><h2 id="使用-add-header"><a href="#使用-add-header" class="headerlink" title="使用 add_header"></a>使用 add_header</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 add_header</span></span><br><span class="line">req = urllib.request.Request(url)</span><br><span class="line">req.add_header(<span class="string">&quot;User-Agent&quot;</span>, <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&quot;</span>)</span><br><span class="line">res = urllib.request.urlopen(req)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(res.read())</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> 爬虫 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Python </tag>
-            
-            <tag> urllib </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>安装pyqt时报错</title>
       <link href="/posts/7583b932/"/>
       <url>/posts/7583b932/</url>
@@ -417,27 +390,25 @@
     
     
     <entry>
-      <title>ubuntu 16.04虚拟机使用jupyter notebook报错</title>
-      <link href="/posts/2157fcb1/"/>
-      <url>/posts/2157fcb1/</url>
+      <title>urllib添加头信息的两种方法</title>
+      <link href="/posts/5254b9a/"/>
+      <url>/posts/5254b9a/</url>
       
-        <content type="html"><![CDATA[<p>本来打算使用下jupyter notebook，结果运行时报错了</p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/e0e1a1a313b4fdd21b92fbbe206b1bdf.png"></p><blockquote><p>然后，根据搜索引擎结果尝试卸载重装</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -H pip uninstall jupyter notebook</span><br><span class="line">sudo -H pip install jupyter notebook</span><br></pre></td></tr></table></figure><blockquote><p>安装时又提示错误    <code>Cannot uninstall &#39;ipython&#39;</code>  </p></blockquote><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/11df463c51409c3e8436a11973c7771b.png"></p><p>根据上面的提示又直接使用命令安装ipython <code>pip install ipython</code>，发现并没有解决问题</p><p>最终搜索到解决方法，运行下面的命令强制更新，更新完成后，重新打开jupyter notebook成功。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 install --ignore-installed ipython --upgrade</span><br></pre></td></tr></table></figure><br><p>参考链接： <a href="https://www.jianshu.com/p/94caf01dd9a6">https://www.jianshu.com/p/94caf01dd9a6</a></p>]]></content>
+        <content type="html"><![CDATA[<h2 id="使用-build-opener"><a href="#使用-build-opener" class="headerlink" title="使用 build_opener"></a>使用 build_opener</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;https://www.baidu.com&quot;</span></span><br><span class="line"><span class="comment"># req = urllib.request.urlopen(url)</span></span><br><span class="line">headers = (<span class="string">&quot;User-Agent&quot;</span>, <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&quot;</span>)</span><br><span class="line"><span class="comment"># 使用 build_opener</span></span><br><span class="line">opener = urllib.request.build_opener()</span><br><span class="line">opener.addheaders = [headers]</span><br><span class="line"><span class="comment"># req = opener.open(url)</span></span><br><span class="line"></span><br><span class="line">urllib.request.install_opener(opener)</span><br><span class="line">req = urllib.request.urlopen(url)</span><br></pre></td></tr></table></figure><h2 id="使用-add-header"><a href="#使用-add-header" class="headerlink" title="使用 add_header"></a>使用 add_header</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 add_header</span></span><br><span class="line">req = urllib.request.Request(url)</span><br><span class="line">req.add_header(<span class="string">&quot;User-Agent&quot;</span>, <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&quot;</span>)</span><br><span class="line">res = urllib.request.urlopen(req)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(res.read())</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
           
-          <category> Python </category>
+          <category> 爬虫 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> ubuntu </tag>
-            
             <tag> Python </tag>
             
-            <tag> jupyter notebook </tag>
+            <tag> urllib </tag>
             
         </tags>
       
@@ -463,6 +434,35 @@
         <tags>
             
             <tag> supervisor </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ubuntu 16.04虚拟机使用jupyter notebook报错</title>
+      <link href="/posts/2157fcb1/"/>
+      <url>/posts/2157fcb1/</url>
+      
+        <content type="html"><![CDATA[<p>本来打算使用下jupyter notebook，结果运行时报错了</p><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/e0e1a1a313b4fdd21b92fbbe206b1bdf.png"></p><blockquote><p>然后，根据搜索引擎结果尝试卸载重装</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -H pip uninstall jupyter notebook</span><br><span class="line">sudo -H pip install jupyter notebook</span><br></pre></td></tr></table></figure><blockquote><p>安装时又提示错误    <code>Cannot uninstall &#39;ipython&#39;</code>  </p></blockquote><p><img src="https://cdn.jsdelivr.net/gh/kcyln/ImageHosting@latest/2020/07/28/11df463c51409c3e8436a11973c7771b.png"></p><p>根据上面的提示又直接使用命令安装ipython <code>pip install ipython</code>，发现并没有解决问题</p><p>最终搜索到解决方法，运行下面的命令强制更新，更新完成后，重新打开jupyter notebook成功。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 install --ignore-installed ipython --upgrade</span><br></pre></td></tr></table></figure><br><p>参考链接： <a href="https://www.jianshu.com/p/94caf01dd9a6">https://www.jianshu.com/p/94caf01dd9a6</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ubuntu </tag>
+            
+            <tag> Python </tag>
+            
+            <tag> jupyter notebook </tag>
             
         </tags>
       
