@@ -282,35 +282,6 @@
     
     
     <entry>
-      <title>Requests小技巧和scrapy说明</title>
-      <link href="/posts/fd59dc2b/"/>
-      <url>/posts/fd59dc2b/</url>
-      
-        <content type="html"><![CDATA[<h2 id="Requests小技巧"><a href="#Requests小技巧" class="headerlink" title="Requests小技巧"></a>Requests小技巧</h2><ul><li><code>requests.utils.dict_from_cookiejar</code> 把cookie对象转化为字典</li><li>请求SSL证书验证  <code>requests.get(&quot;&lt;https://www.12306.cn/mormhweb/&gt;&quot;, verify=False)</code></li><li>配合状态码判断是否请求成功 <code>assert response.status_code ==200</code></li></ul><h2 id="Scrapy"><a href="#Scrapy" class="headerlink" title="Scrapy"></a>Scrapy</h2><blockquote><p>爬虫库 python3.6以上</p></blockquote>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">asn1crypto==<span class="number">0.24</span><span class="number">.0</span></span><br><span class="line">attrs==<span class="number">19.1</span><span class="number">.0</span></span><br><span class="line">Automat==<span class="number">0.7</span><span class="number">.0</span></span><br><span class="line">certifi==<span class="number">2019.3</span><span class="number">.9</span></span><br><span class="line">cffi==<span class="number">1.12</span><span class="number">.3</span></span><br><span class="line">constantly==<span class="number">15.1</span><span class="number">.0</span></span><br><span class="line">cryptography==<span class="number">2.6</span><span class="number">.1</span></span><br><span class="line">cssselect==<span class="number">1.0</span><span class="number">.3</span></span><br><span class="line">hyperlink==<span class="number">19.0</span><span class="number">.0</span></span><br><span class="line">idna==<span class="number">2.8</span></span><br><span class="line">incremental==<span class="number">17.5</span><span class="number">.0</span></span><br><span class="line">lxml==<span class="number">4.3</span><span class="number">.3</span></span><br><span class="line">parsel==<span class="number">1.5</span><span class="number">.1</span></span><br><span class="line">pyasn1==<span class="number">0.4</span><span class="number">.5</span></span><br><span class="line">pyasn1-modules==<span class="number">0.2</span><span class="number">.5</span></span><br><span class="line">pycparser==<span class="number">2.19</span></span><br><span class="line">PyDispatcher==<span class="number">2.0</span><span class="number">.5</span></span><br><span class="line">PyHamcrest==<span class="number">1.9</span><span class="number">.0</span></span><br><span class="line">PyMySQL==<span class="number">0.9</span><span class="number">.3</span></span><br><span class="line">pyOpenSSL==<span class="number">19.0</span><span class="number">.0</span></span><br><span class="line">pywin32==<span class="number">224</span></span><br><span class="line">queuelib==<span class="number">1.5</span><span class="number">.0</span></span><br><span class="line">Scrapy==<span class="number">1.6</span><span class="number">.0</span></span><br><span class="line">service-identity==<span class="number">18.1</span><span class="number">.0</span></span><br><span class="line">six==<span class="number">1.12</span><span class="number">.0</span></span><br><span class="line">Twisted==<span class="number">19.2</span><span class="number">.0</span></span><br><span class="line">w3lib==<span class="number">1.20</span><span class="number">.0</span></span><br><span class="line">wincertstore==<span class="number">0.2</span></span><br><span class="line">zope.interface==<span class="number">4.6</span><span class="number">.0</span></span><br></pre></td></tr></table></figure><blockquote><p>常用命令</p></blockquote><ul><li>全局命令<a href="%E4%B8%8D%E8%BF%9B%E5%85%A5%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E5%8D%B3%E5%8F%AF%E8%BF%90%E8%A1%8C">^1</a><ul><li>fetch: 用来显示爬虫爬取过程</li><li>runspider: 可以实现不依托scrapy的爬虫项目，直接运行一个爬虫文件。</li><li>settings:</li><li>shell:</li><li>startproject:</li><li>version:</li><li>view:可以下载某个网页并用浏览器查看。</li></ul></li><li>项目命令<ul><li>bench: 可以测试本地硬件的性能； 运行scrapy bench 时，会创建一个本地服务器并以最大速度爬行</li><li>check: 爬虫测试比较麻烦，所以在scrapy中使用合同（contract）的方式对爬虫进行测试。<br><code>scrapy check [爬虫名]</code></li><li>crawl</li><li>edit: Linux中可以直接打开编辑器编辑爬虫文件</li><li>genspider: 有多个模板可供选择 参数 -t crawl</li><li>list: 列出当前可以使用的爬虫文件</li><li>parse: 获取指定的网址，使用对应的爬虫文件处理和分析</li></ul></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> 爬虫 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Python </tag>
-            
-            <tag> requests </tag>
-            
-            <tag> scrapy </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>ssh连接失败</title>
       <link href="/posts/a28edf8d/"/>
       <url>/posts/a28edf8d/</url>
@@ -328,33 +299,6 @@
         <tags>
             
             <tag> ssh </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>urllib添加头信息的两种方法</title>
-      <link href="/posts/5254b9a/"/>
-      <url>/posts/5254b9a/</url>
-      
-        <content type="html"><![CDATA[<h2 id="使用-build-opener"><a href="#使用-build-opener" class="headerlink" title="使用 build_opener"></a>使用 build_opener</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;https://www.baidu.com&quot;</span></span><br><span class="line"><span class="comment"># req = urllib.request.urlopen(url)</span></span><br><span class="line">headers = (<span class="string">&quot;User-Agent&quot;</span>, <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&quot;</span>)</span><br><span class="line"><span class="comment"># 使用 build_opener</span></span><br><span class="line">opener = urllib.request.build_opener()</span><br><span class="line">opener.addheaders = [headers]</span><br><span class="line"><span class="comment"># req = opener.open(url)</span></span><br><span class="line"></span><br><span class="line">urllib.request.install_opener(opener)</span><br><span class="line">req = urllib.request.urlopen(url)</span><br></pre></td></tr></table></figure><h2 id="使用-add-header"><a href="#使用-add-header" class="headerlink" title="使用 add_header"></a>使用 add_header</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 add_header</span></span><br><span class="line">req = urllib.request.Request(url)</span><br><span class="line">req.add_header(<span class="string">&quot;User-Agent&quot;</span>, <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&quot;</span>)</span><br><span class="line">res = urllib.request.urlopen(req)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(res.read())</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> 爬虫 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Python </tag>
-            
-            <tag> urllib </tag>
             
         </tags>
       
@@ -390,6 +334,35 @@
     
     
     <entry>
+      <title>Requests小技巧和scrapy说明</title>
+      <link href="/posts/fd59dc2b/"/>
+      <url>/posts/fd59dc2b/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Requests小技巧"><a href="#Requests小技巧" class="headerlink" title="Requests小技巧"></a>Requests小技巧</h2><ul><li><code>requests.utils.dict_from_cookiejar</code> 把cookie对象转化为字典</li><li>请求SSL证书验证  <code>requests.get(&quot;&lt;https://www.12306.cn/mormhweb/&gt;&quot;, verify=False)</code></li><li>配合状态码判断是否请求成功 <code>assert response.status_code ==200</code></li></ul><h2 id="Scrapy"><a href="#Scrapy" class="headerlink" title="Scrapy"></a>Scrapy</h2><blockquote><p>爬虫库 python3.6以上</p></blockquote>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">asn1crypto==<span class="number">0.24</span><span class="number">.0</span></span><br><span class="line">attrs==<span class="number">19.1</span><span class="number">.0</span></span><br><span class="line">Automat==<span class="number">0.7</span><span class="number">.0</span></span><br><span class="line">certifi==<span class="number">2019.3</span><span class="number">.9</span></span><br><span class="line">cffi==<span class="number">1.12</span><span class="number">.3</span></span><br><span class="line">constantly==<span class="number">15.1</span><span class="number">.0</span></span><br><span class="line">cryptography==<span class="number">2.6</span><span class="number">.1</span></span><br><span class="line">cssselect==<span class="number">1.0</span><span class="number">.3</span></span><br><span class="line">hyperlink==<span class="number">19.0</span><span class="number">.0</span></span><br><span class="line">idna==<span class="number">2.8</span></span><br><span class="line">incremental==<span class="number">17.5</span><span class="number">.0</span></span><br><span class="line">lxml==<span class="number">4.3</span><span class="number">.3</span></span><br><span class="line">parsel==<span class="number">1.5</span><span class="number">.1</span></span><br><span class="line">pyasn1==<span class="number">0.4</span><span class="number">.5</span></span><br><span class="line">pyasn1-modules==<span class="number">0.2</span><span class="number">.5</span></span><br><span class="line">pycparser==<span class="number">2.19</span></span><br><span class="line">PyDispatcher==<span class="number">2.0</span><span class="number">.5</span></span><br><span class="line">PyHamcrest==<span class="number">1.9</span><span class="number">.0</span></span><br><span class="line">PyMySQL==<span class="number">0.9</span><span class="number">.3</span></span><br><span class="line">pyOpenSSL==<span class="number">19.0</span><span class="number">.0</span></span><br><span class="line">pywin32==<span class="number">224</span></span><br><span class="line">queuelib==<span class="number">1.5</span><span class="number">.0</span></span><br><span class="line">Scrapy==<span class="number">1.6</span><span class="number">.0</span></span><br><span class="line">service-identity==<span class="number">18.1</span><span class="number">.0</span></span><br><span class="line">six==<span class="number">1.12</span><span class="number">.0</span></span><br><span class="line">Twisted==<span class="number">19.2</span><span class="number">.0</span></span><br><span class="line">w3lib==<span class="number">1.20</span><span class="number">.0</span></span><br><span class="line">wincertstore==<span class="number">0.2</span></span><br><span class="line">zope.interface==<span class="number">4.6</span><span class="number">.0</span></span><br></pre></td></tr></table></figure><blockquote><p>常用命令</p></blockquote><ul><li>全局命令<a href="%E4%B8%8D%E8%BF%9B%E5%85%A5%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E5%8D%B3%E5%8F%AF%E8%BF%90%E8%A1%8C">^1</a><ul><li>fetch: 用来显示爬虫爬取过程</li><li>runspider: 可以实现不依托scrapy的爬虫项目，直接运行一个爬虫文件。</li><li>settings:</li><li>shell:</li><li>startproject:</li><li>version:</li><li>view:可以下载某个网页并用浏览器查看。</li></ul></li><li>项目命令<ul><li>bench: 可以测试本地硬件的性能； 运行scrapy bench 时，会创建一个本地服务器并以最大速度爬行</li><li>check: 爬虫测试比较麻烦，所以在scrapy中使用合同（contract）的方式对爬虫进行测试。<br><code>scrapy check [爬虫名]</code></li><li>crawl</li><li>edit: Linux中可以直接打开编辑器编辑爬虫文件</li><li>genspider: 有多个模板可供选择 参数 -t crawl</li><li>list: 列出当前可以使用的爬虫文件</li><li>parse: 获取指定的网址，使用对应的爬虫文件处理和分析</li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 爬虫 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> requests </tag>
+            
+            <tag> scrapy </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>批处理文件运行python程序</title>
       <link href="/posts/2e9e806c/"/>
       <url>/posts/2e9e806c/</url>
@@ -417,6 +390,33 @@
     
     
     <entry>
+      <title>urllib添加头信息的两种方法</title>
+      <link href="/posts/5254b9a/"/>
+      <url>/posts/5254b9a/</url>
+      
+        <content type="html"><![CDATA[<h2 id="使用-build-opener"><a href="#使用-build-opener" class="headerlink" title="使用 build_opener"></a>使用 build_opener</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;https://www.baidu.com&quot;</span></span><br><span class="line"><span class="comment"># req = urllib.request.urlopen(url)</span></span><br><span class="line">headers = (<span class="string">&quot;User-Agent&quot;</span>, <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&quot;</span>)</span><br><span class="line"><span class="comment"># 使用 build_opener</span></span><br><span class="line">opener = urllib.request.build_opener()</span><br><span class="line">opener.addheaders = [headers]</span><br><span class="line"><span class="comment"># req = opener.open(url)</span></span><br><span class="line"></span><br><span class="line">urllib.request.install_opener(opener)</span><br><span class="line">req = urllib.request.urlopen(url)</span><br></pre></td></tr></table></figure><h2 id="使用-add-header"><a href="#使用-add-header" class="headerlink" title="使用 add_header"></a>使用 add_header</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 add_header</span></span><br><span class="line">req = urllib.request.Request(url)</span><br><span class="line">req.add_header(<span class="string">&quot;User-Agent&quot;</span>, <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&quot;</span>)</span><br><span class="line">res = urllib.request.urlopen(req)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(res.read())</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 爬虫 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> urllib </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ubuntu 16.04虚拟机使用jupyter notebook报错</title>
       <link href="/posts/2157fcb1/"/>
       <url>/posts/2157fcb1/</url>
@@ -433,9 +433,9 @@
       
         <tags>
             
-            <tag> Python </tag>
-            
             <tag> ubuntu </tag>
+            
+            <tag> Python </tag>
             
             <tag> jupyter notebook </tag>
             
