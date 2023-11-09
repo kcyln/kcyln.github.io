@@ -2,9 +2,45 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.kcyln.xyz/Elysia/index.html</loc>
+    
+    <lastmod>2023-11-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.kcyln.xyz/about/index.html</loc>
     
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kcyln.xyz/contact/index.html</loc>
+    
+    <lastmod>2023-11-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kcyln.xyz/link/index.html</loc>
+    
+    <lastmod>2023-11-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kcyln.xyz/updates/index.html</loc>
+    
+    <lastmod>2023-11-09</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -47,24 +83,6 @@
   </url>
   
   <url>
-    <loc>https://www.kcyln.xyz/musics/index.html</loc>
-    
-    <lastmod>2022-04-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.kcyln.xyz/comics/index.html</loc>
-    
-    <lastmod>2022-04-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.kcyln.xyz/novels/index.html</loc>
     
     <lastmod>2022-04-14</lastmod>
@@ -92,43 +110,7 @@
   </url>
   
   <url>
-    <loc>https://www.kcyln.xyz/musics/butterfly/index.html</loc>
-    
-    <lastmod>2022-04-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.kcyln.xyz/categories/index.html</loc>
-    
-    <lastmod>2022-04-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.kcyln.xyz/contact/index.html</loc>
-    
-    <lastmod>2022-04-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.kcyln.xyz/link/index.html</loc>
-    
-    <lastmod>2022-04-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.kcyln.xyz/comics/comic/index.html</loc>
     
     <lastmod>2022-04-14</lastmod>
     
@@ -191,7 +173,7 @@
   </url>
   
   <url>
-    <loc>https://www.kcyln.xyz/posts/a28edf8d/</loc>
+    <loc>https://www.kcyln.xyz/posts/fd59dc2b/</loc>
     
     <lastmod>2019-10-01</lastmod>
     
@@ -200,7 +182,7 @@
   </url>
   
   <url>
-    <loc>https://www.kcyln.xyz/posts/fd59dc2b/</loc>
+    <loc>https://www.kcyln.xyz/posts/a28edf8d/</loc>
     
     <lastmod>2019-10-01</lastmod>
     
@@ -218,7 +200,7 @@
   </url>
   
   <url>
-    <loc>https://www.kcyln.xyz/posts/2e9e806c/</loc>
+    <loc>https://www.kcyln.xyz/posts/7583b932/</loc>
     
     <lastmod>2019-10-01</lastmod>
     
@@ -227,7 +209,7 @@
   </url>
   
   <url>
-    <loc>https://www.kcyln.xyz/posts/7583b932/</loc>
+    <loc>https://www.kcyln.xyz/posts/2e9e806c/</loc>
     
     <lastmod>2019-10-01</lastmod>
     
@@ -256,7 +238,7 @@
 
   <url>
     <loc>https://www.kcyln.xyz/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -264,182 +246,182 @@
   
   <url>
     <loc>https://www.kcyln.xyz/tags/mysql/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/mongoDB/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/redis/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/git/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/docker/</loc>
-    <lastmod>2023-03-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.kcyln.xyz/tags/ubuntu/</loc>
-    <lastmod>2023-03-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.kcyln.xyz/tags/Linux/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/docker-compose/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/django/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/uwsgi/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/Python/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kcyln.xyz/tags/ubuntu/</loc>
+    <lastmod>2023-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kcyln.xyz/tags/Linux/</loc>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/gitignore/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/matplotlib/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/pip/</loc>
-    <lastmod>2023-03-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.kcyln.xyz/tags/ssh/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/requests/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/scrapy/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kcyln.xyz/tags/ssh/</loc>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/urllib/</loc>
-    <lastmod>2023-03-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.kcyln.xyz/tags/%E6%89%B9%E5%A4%84%E7%90%86/</loc>
-    <lastmod>2023-03-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.kcyln.xyz/tags/windows/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/pyqt/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kcyln.xyz/tags/%E6%89%B9%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2023-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kcyln.xyz/tags/windows/</loc>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/python/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/copy/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/deepcopy/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/jupyter-notebook/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/tags/supervisor/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -448,63 +430,63 @@
   
   <url>
     <loc>https://www.kcyln.xyz/categories/Docs/</loc>
-    <lastmod>2023-03-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.kcyln.xyz/categories/Linux/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/categories/Redis/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/categories/Docker/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kcyln.xyz/categories/Linux/</loc>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/categories/Git/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/categories/Python/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/categories/%E7%88%AC%E8%99%AB/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/categories/Windows/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.kcyln.xyz/categories/Web/</loc>
-    <lastmod>2023-03-28</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
